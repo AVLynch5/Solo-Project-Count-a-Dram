@@ -3,7 +3,7 @@ const {rejectUnauthenticated} = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-// Handles Ajax request for user information if user is authenticated
+// Handles Ajax request for whiskey information if user is authenticated
 router.get('/', rejectUnauthenticated, (req, res) =>  {
     const queryText = `SELECT * FROM "whiskey" ORDER BY "id" ASC;`;
     pool.query(queryText)
