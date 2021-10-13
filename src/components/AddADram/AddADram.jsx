@@ -83,7 +83,7 @@ function AddADram(){
         <>
             <h1>Add a Dram</h1>
             <form onSubmit={calcCals}>
-                <input placeholder="whiskey name" />
+                <input placeholder="whiskey name" type="text" value={newDram.name} onChange={(event) => setNewDram({...newDram, name: event.target.value})}/>
                 <input required type="number" placeholder="whiskey proof" value={newDram.proof} onChange={(event) => setNewDram({...newDram, proof: event.target.value})}/>
                 <input required type="number" placeholder="Oz whiskey" value={newDram.quantity} onChange={(event) => setNewDram({...newDram, quantity: event.target.value})}/>
                 <button type="submit">Calculate Calories</button>
