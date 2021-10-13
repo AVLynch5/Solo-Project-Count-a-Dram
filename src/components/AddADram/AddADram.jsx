@@ -50,6 +50,7 @@ function AddADram(){
             //if newDram whiskey info matches entry already in DB, change exists property to true and change whiskeyID to whiskey.id
             for (let whiskey of whiskeyArray) {
                 if (whiskey.whiskey_name == newDram.name && whiskey.whiskey_proof == newDram.proof) {
+                    console.log('DUP!');
                     setNewDram({...newDram, whiskeyExists: true});
                     setNewDram({...newDram, whiskeyID: whiskey.id});
                 }
