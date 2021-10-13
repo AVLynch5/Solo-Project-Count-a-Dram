@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import AddADram from '../AddADram/AddADram';
 
 import './App.css';
 
@@ -46,6 +47,16 @@ function App() {
             path="/about"
           >
             <AboutPage />
+          </Route>
+
+          {/* Visiting localhost:3000/adddram will show the Add a Dram page. */}
+          <Route
+            // shows Add a Dram at all times (logged in or not)
+            //idea - if user logged in, show add dram button. Else, do not.
+            exact
+            path="/adddram"
+          >
+            <AddADram />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
