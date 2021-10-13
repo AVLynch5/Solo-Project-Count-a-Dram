@@ -44,6 +44,7 @@ function AddADram(){
                 }
             }
             dispatch({type: 'ADD_NEW_DRAM', payload: newDram});
+            clearInputs();
             //after dispatch, route user to view drams component
         }
     }
