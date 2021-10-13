@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useWhiskey from "../../hooks/useWhiskey";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 function AddADram(){
     //dispatch
@@ -11,6 +12,16 @@ function AddADram(){
 
     //array of whiskies
     const whiskeyArray = useWhiskey();
+
+    //useEffect - call fetchWhiskies on load
+    useEffect(() => {
+        fetchWhiskies();
+    }, []);
+
+    //function fetchWhiskies - GETs whiskey array
+    const fetchWhiskies = () => {
+        dispatch({type: 'FETCH_WHISKEY_DB'});
+    }
 
     //function calCals to calculate calories given user input
     const calcCals = (event) => {
