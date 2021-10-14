@@ -12,8 +12,18 @@ function* postDram(action) {
   }
 }
 
+function* getDrams(action) {
+    try{
+        const getDate = yield axios.get(`/api/dram/${action.payload}`);
+        yield put({type: 'SET_DRAMS', payload: getDate.data})
+    } catch(error) {
+        console.log(`Error getting drams from ${action.payload}`, error);
+    }
+}
+
 function* dramSaga() {
   yield takeLatest('ADD_NEW_DRAM', postDram);
+  yield takeLatest('GET_DATE_DRAMS', getDrams);
 }
 
 export default dramSaga;
