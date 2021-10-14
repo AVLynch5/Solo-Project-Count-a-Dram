@@ -29,15 +29,30 @@ function AddADram(){
         //input validation here-ensure user inputted numbers into proof/quantity fields. Also ensure proof <= 200
         const validation = validateNums();
         if (validation) {
+            checkDBForWhiskey();
             const ozAlc = (newDram.proof*newDram.quantity)/200;
             const mLAlc = 29.5735*ozAlc;
             const gAlc = 0.789*mLAlc;
             const dramCals = 7*gAlc;
             setNewDram({...newDram, calories: parseInt(dramCals)});
+            
         } else{
             alert('Please enter valid proof and quantity values');
             return;
         } 
+    }
+
+    //function to check if whiskey already exists in DB
+    const checkDBForWhiskey = () => {
+        //if newDram whiskey info matches entry already in DB, change exists property to true and change whiskeyID to whiskey.id
+        for (let whiskey of whiskeyArray) {
+            if (whiskey.whiskey_name == newDram.name && whiskey.whiskey_proof == newDram.proof) {
+                console.log('DUP!');
+                setNewDram({...newDram, whiskeyExists: true});
+                setNewDram({...newDram, whiskeyID: whiskey.id});
+                console.log('Done!');
+            }
+        }
     }
 
     //function handlePost - checks if whiskey name/proof exists in whiskeyArray to finalize post payload
@@ -47,18 +62,10 @@ function AddADram(){
             alert('Please enter dram information and calculate');
             return;
         } else {
-            //if newDram whiskey info matches entry already in DB, change exists property to true and change whiskeyID to whiskey.id
-            for (let whiskey of whiskeyArray) {
-                if (whiskey.whiskey_name == newDram.name && whiskey.whiskey_proof == newDram.proof) {
-                    console.log('DUP!');
-                    setNewDram({...newDram, whiskeyExists: true});
-                    setNewDram({...newDram, whiskeyID: whiskey.id});
-                }
-            }
             dispatch({type: 'ADD_NEW_DRAM', payload: newDram});
             clearInputs();
             //after dispatch, route user to view drams component
-        }
+        }  
     }
 
     //function to validate inputted numbers
@@ -83,6 +90,7 @@ function AddADram(){
     return(
         <>
             <h1>Add a Dram</h1>
+            <p>{JSON.stringify(newDram)}</p>
             <form onSubmit={calcCals}>
                 <input placeholder="whiskey name" type="text" value={newDram.name} onChange={(event) => setNewDram({...newDram, name: event.target.value})}/>
                 <input required type="number" placeholder="whiskey proof" value={newDram.proof} onChange={(event) => setNewDram({...newDram, proof: event.target.value})}/>
