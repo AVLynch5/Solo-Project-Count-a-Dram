@@ -31,7 +31,19 @@ function ViewDrams() {
             <div className="dramData">
                 <h3>Drams from Selected Date</h3>
                 <div className="dataContainer">
-
+                    <table className="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Whiskey Name</th>
+                                <th>Whiskey Proof</th>
+                                <th>Dram Quantity</th>
+                                <th>Dram Calories</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </>
