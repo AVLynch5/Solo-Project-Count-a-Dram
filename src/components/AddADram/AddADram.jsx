@@ -8,7 +8,7 @@ function AddADram(){
     const dispatch = useDispatch();
 
     //state var
-    const [newDram, setNewDram] = useState({name: '', proof: '', quantity: '', calories: '', whiskeyExists: false, whiskeyID: ''});
+    const [newDram, setNewDram] = useState({name: '', proof: '', quantity: '', calories: ''});
 
     //array of whiskies
     const whiskeyArray = useWhiskey();
@@ -37,7 +37,7 @@ function AddADram(){
             if (duplicate.status) {
                 setNewDram({...newDram, calories: parseInt(dramCals), whiskeyExists: true, whiskeyID: duplicate.param});
             } else {
-                setNewDram({...newDram, calories: parseInt(dramCals)});
+                setNewDram({...newDram, calories: parseInt(dramCals), whiskeyExists: false, whiskeyID: ''});
             }
         } else{
             alert('Please enter valid proof and quantity values');
@@ -86,7 +86,7 @@ function AddADram(){
 
     const clearInputs = () => {
         //consider validation sweetAlert - ensure user wants to clear
-        setNewDram({name: '', proof: '', quantity: '', calories: '', whiskeyExists: false, whiskeyID: ''});
+        setNewDram({name: '', proof: '', quantity: '', calories: ''});
     }
 
     return(
