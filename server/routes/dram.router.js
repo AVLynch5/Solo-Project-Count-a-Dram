@@ -58,7 +58,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     const dateID = req.params.id;
     const userID = req.user.id;
     const queryText = `
-        SELECT "whiskey"."whiskey_name", "whiskey"."whiskey_proof", "dram"."dram_quantity", "dram"."dram_calories"
+        SELECT "dram"."id", "whiskey"."whiskey_name", "whiskey"."whiskey_proof", "dram"."dram_quantity", "dram"."dram_calories"
         FROM "whiskey"
         INNER JOIN "dram"
         ON "whiskey"."id" = "dram"."whiskey_id"
