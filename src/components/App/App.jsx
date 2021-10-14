@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AddADram from '../AddADram/AddADram';
+import ViewDrams from '../ViewDrams/ViewDrams';
 
 import './App.css';
 
@@ -57,6 +58,14 @@ function App() {
             path="/adddram"
           >
             <AddADram />
+          </Route>
+
+          <Route
+            // shows View Drams at all times (logged in or not)
+            //idea - user must be logged in to view drams
+            path="/viewdrams"
+          >
+            <ViewDrams />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
