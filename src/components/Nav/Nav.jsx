@@ -43,6 +43,10 @@ function Nav() {
         <Link className="addDramLink" to="/adddram">
           Add a Dram
         </Link>
+
+        <Link className="viewDramsLink" to="/viewdrams">
+          View Drams
+        </Link>
       </div>
     </div>
   );
