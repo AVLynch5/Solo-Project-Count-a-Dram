@@ -53,4 +53,25 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     
 })
 
+//GET drams from date
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+    const dateID = req.params.id;
+    const userID = req.user.id;
+    const queryText = `
+        SELECT "whiskey"."whiskey_name", "whiskey"."whiskey_proof", "dram"."dram_quantity", "dram"."dram_calories"
+        FROM "whiskey"
+        INNER JOIN "dram"
+        ON "whiskey"."id" = "dram"."whiskey_id"
+        WHERE ("dram"."dram_date" = $1 AND "dram"."user_id" = $2)
+        ORDER BY "dram"."dram_time" ASC;`;
+    pool.query(queryText, [dateID, userID])
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log('Error GETting data from date', error);
+            res.sendStatus(500);
+        });
+})
+
 module.exports = router;
