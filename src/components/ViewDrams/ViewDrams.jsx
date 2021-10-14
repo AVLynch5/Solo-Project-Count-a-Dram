@@ -4,9 +4,12 @@ import Calendar from "react-calendar";
 //import momentjs
 import moment from "moment";
 import { useDispatch } from "react-redux";
+import useDram from "../../hooks/useDram";
 
 function ViewDrams() {
     const dispatch = useDispatch();
+
+    const dramList = useDram();
 
     const [value, setValue] = useState(new Date());
 
@@ -41,7 +44,14 @@ function ViewDrams() {
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            {dramList.map((entry) => {
+                                return(<tr key={entry.id}>
+                                    <td>{entry.whiskey_name}</td>
+                                    <td>{entry.whiskey_proof}</td>
+                                    <td>{entry.dram_quantity}</td>
+                                    <td>{entry.dram_calories}</td>
+                                </tr>)
+                            })}
                         </tbody>
                     </table>
                 </div>
