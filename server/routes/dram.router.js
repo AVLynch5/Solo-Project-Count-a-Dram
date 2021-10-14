@@ -17,6 +17,18 @@ router.post('/', rejectUnauthenticated, (req, res) => {
             .then((result) => {
                 console.log(result.rows[0].id);
                 whiskeyID = result.rows[0].id;
+                console.log(whiskeyID, 'woooo');
+                const insertDramQuery = `
+                    INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories")
+                    VALUES ($1, $2, $3, $4);`;
+                pool.query(insertDramQuery, [req.user.id, whiskeyID, req.body.quantity, req.body.calories])
+                    .then((result) => {
+                        res.sendStatus(201);
+                    })
+                    .catch((error) => {
+                        console.log('Error POSTing new dram', error);
+                        res.sendStatus(500);
+                    });
             })
             .catch((error) => {
                 console.log('Error creating new whiskey', error);
@@ -24,20 +36,21 @@ router.post('/', rejectUnauthenticated, (req, res) => {
             break;
         case true:
             whiskeyID = req.body.whiskeyID;
+            console.log(whiskeyID, 'woooo');
+            const insertDramQuery = `
+                INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories")
+                VALUES ($1, $2, $3, $4);`;
+            pool.query(insertDramQuery, [req.user.id, whiskeyID, req.body.quantity, req.body.calories])
+                .then((result) => {
+                    res.sendStatus(201);
+                })
+                .catch((error) => {
+                    console.log('Error POSTing new dram', error);
+                    res.sendStatus(500);
+                });
             break; 
     }  
-    console.log(whiskeyID, 'woooo');
-    const insertDramQuery = `
-        INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories")
-        VALUES ($1, $2, $3, $4);`;
-    pool.query(insertDramQuery, [req.user.id, whiskeyID, req.body.quantity, req.body.calories])
-        .then((result) => {
-            res.sendStatus(201);
-        })
-        .catch((error) => {
-            console.log('Error POSTing new dram', error);
-            res.sendStatus(500);
-        });
+    
 })
 
 module.exports = router;
