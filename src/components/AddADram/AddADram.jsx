@@ -24,18 +24,21 @@ function AddADram(){
     }
 
     //function calCals to calculate calories given user input
-    const calcCals = (event) => {
+    const calcCals = async (event) => {
         event.preventDefault();
         //input validation here-ensure user inputted numbers into proof/quantity fields. Also ensure proof <= 200
         const validation = validateNums();
+        const duplicate = await checkDBForWhiskey();
         if (validation) {
-            checkDBForWhiskey();
             const ozAlc = (newDram.proof*newDram.quantity)/200;
             const mLAlc = 29.5735*ozAlc;
             const gAlc = 0.789*mLAlc;
             const dramCals = 7*gAlc;
-            setNewDram({...newDram, calories: parseInt(dramCals)});
-            
+            if (duplicate.status) {
+                setNewDram({...newDram, calories: parseInt(dramCals), whiskeyExists: true, whiskeyID: duplicate.param});
+            } else {
+                setNewDram({...newDram, calories: parseInt(dramCals)});
+            }
         } else{
             alert('Please enter valid proof and quantity values');
             return;
@@ -48,11 +51,10 @@ function AddADram(){
         for (let whiskey of whiskeyArray) {
             if (whiskey.whiskey_name == newDram.name && whiskey.whiskey_proof == newDram.proof) {
                 console.log('DUP!');
-                setNewDram({...newDram, whiskeyExists: true});
-                setNewDram({...newDram, whiskeyID: whiskey.id});
-                console.log('Done!');
+                return {status: true, param: whiskey.id};
             }
         }
+        return {status: false};
     }
 
     //function handlePost - checks if whiskey name/proof exists in whiskeyArray to finalize post payload
