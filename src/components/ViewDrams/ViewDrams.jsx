@@ -51,7 +51,7 @@ function ViewDrams() {
                         </thead>
                         <tbody>
                             {dramList.map((entry) => {
-                                return(<ViewDramChild dramList={dramList} entry={entry} />)
+                                return(<ViewDramChild key={entry.id} dramList={dramList} entry={entry} />)
                             })}
                         </tbody>
                     </table>
