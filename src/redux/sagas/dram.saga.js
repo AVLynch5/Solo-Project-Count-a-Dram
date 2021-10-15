@@ -21,7 +21,7 @@ function* getDrams(action) {
     }
 }
 
-function* deleteDram(Action) {
+function* deleteDram(action) {
     try {
         const dramID = action.payload.id;
         const dramDate = action.payload.date;

@@ -74,4 +74,19 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         });
 })
 
+//DELETE dram with ID
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    const dramID = req.params.id;
+    const userID = req.user.id;
+    const queryText = `DELETE FROM "dram" WHERE ("id" = $1 AND "user_id" = $2);`;
+    pool.query(queryText, [dramID, userID])
+        .then((result) => {
+            res.sendStatus(201);
+        })
+        .catch((error) => {
+            console.log('Error DELETEing data', error);
+            res.sendStatus(500);
+        });
+})
+
 module.exports = router;
