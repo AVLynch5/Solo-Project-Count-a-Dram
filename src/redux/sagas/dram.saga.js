@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//post new dram entry
 function* postDram(action) {
   try {
     const newDram = action.payload;
@@ -12,6 +13,7 @@ function* postDram(action) {
   }
 }
 
+//get dram entries by date
 function* getDrams(action) {
     try{
         const getDate = yield axios.get(`/api/dram/${action.payload}`);
@@ -21,6 +23,7 @@ function* getDrams(action) {
     }
 }
 
+//delete dram entry by id
 function* deleteDram(action) {
     try {
         const dramID = action.payload.id;
