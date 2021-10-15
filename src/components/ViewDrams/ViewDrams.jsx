@@ -24,6 +24,12 @@ function ViewDrams() {
         dispatch({type: 'DELETE_DRAM', payload: {date: dramDate, id: dramID}});
     }
 
+    const [editMode, setEditMode] = useState(false);
+
+    const editDram = () => {
+        setEditMode(!editMode);
+    }
+
     return(
         <>
             <div className="calendar">
@@ -53,12 +59,12 @@ function ViewDrams() {
                             {dramList.map((entry) => {
                                 return(
                                     <tr key={entry.id}>
-                                        <td>{entry.whiskey_name}</td>
-                                        <td>{entry.whiskey_proof}</td>
-                                        <td>{entry.dram_quantity}</td>
+                                        <td>{editMode ? <input type="text" value={dramList[dramList.indexOf(entry)].whiskey_name} onChange={(event) => dispatch({type: 'EDIT_WHISKEY_NAME', payload: {index: dramList.indexOf(entry), name: event.target.value}})}/> : entry.whiskey_name}</td>
+                                        <td>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].whiskey_proof}/> : entry.whiskey_proof}</td>
+                                        <td>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].dram_quantity}/> : entry.dram_quantity}</td>
                                         <td>{entry.dram_calories}</td>
                                         <td><button onClick={() => handleDelete(entry.dram_date, entry.id)}>Delete</button></td>
-                                        <td><button>Edit</button></td>
+                                        <td>{editMode ? <button onClick={editDram}>Confirm</button> : <button onClick={editDram}>Edit</button>}</td>
                                     </tr>
                                 )
                             })}
