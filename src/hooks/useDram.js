@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-//Selector gets whiskey reducer
+//Selector gets dram reducer
 
 const useDram = () => {
   return useSelector(store => store.dram)
