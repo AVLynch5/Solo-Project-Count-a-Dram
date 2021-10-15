@@ -6,51 +6,63 @@ const router = express.Router();
 //POST
 router.post('/', rejectUnauthenticated, (req, res) => {
     console.log(req.body);
-    let whiskeyID;
-    switch (req.body.whiskeyExists) {
-        case false:
-            const insertWhiskeyQuery = `
-                INSERT INTO "whiskey" ("whiskey_name", "whiskey_proof")
-                VALUES ($1, $2)
-                RETURNING "id";`;
-            pool.query(insertWhiskeyQuery, [req.body.name, req.body.proof])
-            .then((result) => {
-                console.log(result.rows[0].id);
-                whiskeyID = result.rows[0].id;
-                console.log(whiskeyID, 'woooo');
-                const insertDramQuery = `
-                    INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories")
-                    VALUES ($1, $2, $3, $4);`;
-                pool.query(insertDramQuery, [req.user.id, whiskeyID, req.body.quantity, req.body.calories])
-                    .then((result) => {
-                        res.sendStatus(201);
-                    })
+    //Phase 1: Check "whiskey" for entries matching the user's inputted information
+    const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2);`;
+    pool.query(searchQuery, [req.body.name, req.body.proof])
+        .then((result) => {
+            //if result.rows.length == 0, whiskey does not exist. If result.rows.length == 1, whiskey does exist
+            const whiskeyExists = (result.rows.length == 1 ? true : false);
+            //Phase 2: If whiskeyExists false, must POST user inputted info into "whiskey" and return id, then POST dram info. If whiskeyExists true, can pull id from result.rows and POST dram info.
+            switch (whiskeyExists) {
+                case false:
+                    const insertWhiskeyQuery = `
+                        INSERT INTO "whiskey" ("whiskey_name", "whiskey_proof")
+                        VALUES ($1, $2)
+                        RETURNING "id";`;
+                    pool.query(insertWhiskeyQuery, [req.body.name, req.body.proof])
+                        .then((result) => {
+                            console.log(result.rows[0].id);
+                            const whiskeyID = result.rows[0].id;
+                            console.log(whiskeyID, 'woooo');
+                            //Here's where whiskeyID is used to POST dram info
+                            const insertDramQuery = `
+                                INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories")
+                                VALUES ($1, $2, $3, $4);`;
+                            pool.query(insertDramQuery, [req.user.id, whiskeyID, req.body.quantity, req.body.calories])
+                                .then((result) => {
+                                    res.sendStatus(201);
+                                })
+                                .catch((error) => {
+                                    console.log('Error POSTing new dram', error);
+                                    res.sendStatus(500);
+                                });
+                        })
                     .catch((error) => {
-                        console.log('Error POSTing new dram', error);
-                        res.sendStatus(500);
-                    });
-            })
-            .catch((error) => {
-                console.log('Error creating new whiskey', error);
-            })
-            break;
-        case true:
-            whiskeyID = req.body.whiskeyID;
-            console.log(whiskeyID, 'woooo');
-            const insertDramQuery = `
-                INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories")
-                VALUES ($1, $2, $3, $4);`;
-            pool.query(insertDramQuery, [req.user.id, whiskeyID, req.body.quantity, req.body.calories])
-                .then((result) => {
-                    res.sendStatus(201);
-                })
-                .catch((error) => {
-                    console.log('Error POSTing new dram', error);
-                    res.sendStatus(500);
-                });
-            break; 
-    }  
-    
+                        console.log('Error creating new whiskey', error);
+                    })
+                    break;
+                case true:
+                    //Since whiskeyExists true, can pull existing id from matching object @ result.rows.id
+                    const whiskeyID = result.rows[0].id;
+                    console.log(whiskeyID, 'woooo');
+                    //Here's where whiskeyID is used to POST dram info
+                    const insertDramQuery = `
+                        INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories")
+                        VALUES ($1, $2, $3, $4);`;
+                    pool.query(insertDramQuery, [req.user.id, whiskeyID, req.body.quantity, req.body.calories])
+                        .then((result) => {
+                            res.sendStatus(201);
+                        })
+                        .catch((error) => {
+                            console.log('Error POSTing new dram', error);
+                            res.sendStatus(500);
+                        });
+                    break; 
+            }
+        }) 
+        .catch((error) => {
+            console.log('Error GETting whiskey info from DB', error);
+        });
 })
 
 //GET drams from date
