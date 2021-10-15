@@ -41,6 +41,8 @@ function ViewDrams() {
                                 <th>Whiskey Proof</th>
                                 <th>Dram Quantity</th>
                                 <th>Dram Calories</th>
+                                <th>Delete</th>
+                                <th>Edit</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,6 +52,8 @@ function ViewDrams() {
                                     <td>{entry.whiskey_proof}</td>
                                     <td>{entry.dram_quantity}</td>
                                     <td>{entry.dram_calories}</td>
+                                    <td><button>Delete</button></td>
+                                    <td><button>Edit</button></td>
                                 </tr>)
                             })}
                         </tbody>
