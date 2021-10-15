@@ -31,7 +31,7 @@ function ViewDrams() {
     }
 
     //function calCals to calculate calories given user input
-    const calcCals = (proof, quantity) => {
+    const calcCals = (index, proof, quantity) => {
         //input validation here-ensure user inputted numbers into proof/quantity fields. Also ensure proof <= 200
         const validation = validateNums(proof, quantity);
         if (validation) {
@@ -39,7 +39,8 @@ function ViewDrams() {
             const mLAlc = 29.5735*ozAlc;
             const gAlc = 0.789*mLAlc;
             const dramCals = 7*gAlc;
-            //setNewDram({...newDram, calories: parseInt(dramCals), whiskeyExists: true, whiskeyID: duplicate.param});
+            dispatch({type: 'EDIT_DRAM_CALORIES', payload: {index: index, calories: parseInt(dramCals)}});
+            setEditMode(!editMode);
         } else{
             alert('Please enter valid proof and quantity values');
             return;
@@ -94,7 +95,7 @@ function ViewDrams() {
                                         <td>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].dram_quantity} onChange={(event) => dispatch({type: 'EDIT_DRAM_QUANTITY', payload: {index: dramList.indexOf(entry), quantity: event.target.value}})}/> : entry.dram_quantity}</td>
                                         <td>{entry.dram_calories}</td>
                                         <td><button onClick={() => handleDelete(entry.dram_date, entry.id)}>Delete</button></td>
-                                        <td>{editMode ? <button onClick={editDram}>Confirm</button> : <button onClick={editDram}>Edit</button>}</td>
+                                        <td>{editMode ? <button onClick={() => calcCals(dramList.indexOf(entry), entry.whiskey_proof, entry.dram_quantity)}>Confirm</button> : <button onClick={editDram}>Edit</button>}</td>
                                     </tr>
                                 )
                             })}

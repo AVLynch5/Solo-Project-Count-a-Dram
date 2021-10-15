@@ -8,6 +8,8 @@ const dramReducer = (state = [], action) => {
             return state.map((entry, i) => i === action.payload.index ? {...entry, whiskey_proof: action.payload.proof} : entry)
         case 'EDIT_DRAM_QUANTITY':
             return state.map((entry, i) => i === action.payload.index ? {...entry, dram_quantity: action.payload.quantity} : entry)
+        case 'EDIT_DRAM_CALORIES':
+            return state.map((entry, i) => i === action.payload.index ? {...entry, dram_calories: action.payload.calories} : entry)
         default:
             return state;
     }
