@@ -3,11 +3,11 @@ const dramReducer = (state = [], action) => {
         case 'SET_DRAMS':
             return action.payload;
         case 'EDIT_WHISKEY_NAME':
-            return [...state, state[action.payload.index].whiskey_name = action.payload.name];
+            return state.map((entry, i) => i === action.payload.index ? {...entry, whiskey_name: action.payload.name} : entry)
         case 'EDIT_WHISKEY_PROOF':
-            return [...state, state[action.payload.index].whiskey_proof = action.payload.proof];
+            return state.map((entry, i) => i === action.payload.index ? {...entry, whiskey_proof: action.payload.proof} : entry)
         case 'EDIT_DRAM_QUANTITY':
-            return [...state, state[action.payload.index].dram_quantity = action.payload.quantity];
+            return state.map((entry, i) => i === action.payload.index ? {...entry, dram_quantity: action.payload.quantity} : entry)
         default:
             return state;
     }
