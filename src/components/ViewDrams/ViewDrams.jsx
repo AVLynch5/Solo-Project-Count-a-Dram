@@ -9,10 +9,13 @@ import useDram from "../../hooks/useDram";
 function ViewDrams() {
     const dispatch = useDispatch();
 
+    //import instance of dramReducer
     const dramList = useDram();
 
+    //state var for Calendar
     const [value, setValue] = useState(new Date());
 
+    //function to change calendar date on click and GET drams by date
     function onChange(nextValue) {
         setValue(nextValue);
         const dateToDisplay = moment(nextValue).format('YYYY-MM-DD');
@@ -20,10 +23,12 @@ function ViewDrams() {
         dispatch({type: 'GET_DATE_DRAMS', payload: dateToDisplay});
     }
 
+    //function to handle DELETE and make dispatch. Requires dram id to DELETE and date to GET updated dram array
     const handleDelete = (dramDate, dramID) => {
         dispatch({type: 'DELETE_DRAM', payload: {date: dramDate, id: dramID}});
     }
 
+    //state var to toggle b/t editMode
     const [editMode, setEditMode] = useState(false);
 
     const editDram = () => {
