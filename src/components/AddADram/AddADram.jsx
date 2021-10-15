@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 
 function AddADram(){
     //dispatch
