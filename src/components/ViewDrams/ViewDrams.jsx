@@ -20,6 +20,10 @@ function ViewDrams() {
         dispatch({type: 'GET_DATE_DRAMS', payload: dateToDisplay});
     }
 
+    const handleDelete = (dramDate, dramID) => {
+        dispatch({type: 'DELETE_DRAM', payload: {date: dramDate, id: dramID}});
+    }
+
     return(
         <>
             <div className="calendar">
@@ -47,14 +51,16 @@ function ViewDrams() {
                         </thead>
                         <tbody>
                             {dramList.map((entry) => {
-                                return(<tr key={entry.id}>
-                                    <td>{entry.whiskey_name}</td>
-                                    <td>{entry.whiskey_proof}</td>
-                                    <td>{entry.dram_quantity}</td>
-                                    <td>{entry.dram_calories}</td>
-                                    <td><button>Delete</button></td>
-                                    <td><button>Edit</button></td>
-                                </tr>)
+                                return(
+                                    <tr key={entry.id}>
+                                        <td>{entry.whiskey_name}</td>
+                                        <td>{entry.whiskey_proof}</td>
+                                        <td>{entry.dram_quantity}</td>
+                                        <td>{entry.dram_calories}</td>
+                                        <td><button onClick={() => handleDelete(entry.dram_date, entry.id)}>Delete</button></td>
+                                        <td><button>Edit</button></td>
+                                    </tr>
+                                )
                             })}
                         </tbody>
                     </table>
