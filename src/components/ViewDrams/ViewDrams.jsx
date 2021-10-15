@@ -30,6 +30,36 @@ function ViewDrams() {
         setEditMode(!editMode);
     }
 
+    //function calCals to calculate calories given user input
+    const calcCals = (proof, quantity) => {
+        //input validation here-ensure user inputted numbers into proof/quantity fields. Also ensure proof <= 200
+        const validation = validateNums(proof, quantity);
+        if (validation) {
+            const ozAlc = (proof*quantity)/200;
+            const mLAlc = 29.5735*ozAlc;
+            const gAlc = 0.789*mLAlc;
+            const dramCals = 7*gAlc;
+            //setNewDram({...newDram, calories: parseInt(dramCals), whiskeyExists: true, whiskeyID: duplicate.param});
+        } else{
+            alert('Please enter valid proof and quantity values');
+            return;
+        } 
+    }
+
+    //function to validate inputted numbers
+    const validateNums = (proof, quantity) => {
+        //inputted nums should not be negative
+        if (proof < 0 || quantity < 0) {
+            return false;
+        }
+        //proof cannot exceed 200 
+        if (proof > 200) {
+            return false;
+        }
+        else 
+            return true
+    }
+
     return(
         <>
             <div className="calendar">
