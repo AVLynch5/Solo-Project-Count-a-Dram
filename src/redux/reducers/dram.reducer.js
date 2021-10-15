@@ -3,6 +3,7 @@ const dramReducer = (state = [], action) => {
         case 'SET_DRAMS':
             return action.payload;
         case 'EDIT_WHISKEY_NAME':
+            //.map returns a new array. Here, if user mutates an object property value, an array containing the modified object is returned.
             return state.map((entry, i) => i === action.payload.index ? {...entry, whiskey_name: action.payload.name} : entry)
         case 'EDIT_WHISKEY_PROOF':
             return state.map((entry, i) => i === action.payload.index ? {...entry, whiskey_proof: action.payload.proof} : entry)
