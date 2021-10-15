@@ -2,7 +2,6 @@ import { all } from 'redux-saga/effects';
 import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
-import whiskeySaga from './whiskey.saga';
 import dramSaga from './dram.saga';
 
 // rootSaga is the primary saga.

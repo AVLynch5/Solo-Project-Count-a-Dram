@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
-import whiskey from './whiskey.reducer';
 import dram from './dram.reducer';
 
 // rootReducer is the primary reducer for our entire project
