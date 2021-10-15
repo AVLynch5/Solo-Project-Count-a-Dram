@@ -21,9 +21,21 @@ function* getDrams(action) {
     }
 }
 
+function* deleteDram(Action) {
+    try {
+        const dramID = action.payload.id;
+        const dramDate = action.payload.date;
+        const deleteDram = yield axios.delete(`/api/dram/${dramID}`);
+        yield put({type: 'GET_DATE_DRAMS', payload: dramDate});
+    } catch(error) {
+        console.log('Error deleting dram', error);
+    }
+}
+
 function* dramSaga() {
   yield takeLatest('ADD_NEW_DRAM', postDram);
   yield takeLatest('GET_DATE_DRAMS', getDrams);
+  yield takeLatest('DELETE_DRAM', deleteDram);
 }
 
 export default dramSaga;
