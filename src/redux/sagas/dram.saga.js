@@ -25,7 +25,7 @@ function* deleteDram(Action) {
     try {
         const dramID = action.payload.id;
         const dramDate = action.payload.date;
-        const deleteDram = yield axios.delete(`/api/dram/${dramID}`);
+        yield axios.delete(`/api/dram/${dramID}`);
         yield put({type: 'GET_DATE_DRAMS', payload: dramDate});
     } catch(error) {
         console.log('Error deleting dram', error);
