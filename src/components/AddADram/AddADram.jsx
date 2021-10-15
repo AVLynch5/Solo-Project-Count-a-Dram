@@ -1,5 +1,4 @@
 import { useState } from "react";
-import useWhiskey from "../../hooks/useWhiskey";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
@@ -10,53 +9,21 @@ function AddADram(){
     //state var
     const [newDram, setNewDram] = useState({name: '', proof: '', quantity: '', calories: ''});
 
-    //array of whiskies
-    const whiskeyArray = useWhiskey();
-
-    //useEffect - call fetchWhiskies on load
-    useEffect(() => {
-        fetchWhiskies();
-    }, []);
-
-    //function fetchWhiskies - GETs whiskey array
-    const fetchWhiskies = () => {
-        dispatch({type: 'FETCH_WHISKEY_DB'});
-    }
-
     //function calCals to calculate calories given user input
-    const calcCals = async (event) => {
+    const calcCals = (event) => {
         event.preventDefault();
         //input validation here-ensure user inputted numbers into proof/quantity fields. Also ensure proof <= 200
         const validation = validateNums();
-        //await - code will "pause" here until checkDBForWhiskey returns result
-        const duplicate = await checkDBForWhiskey();
         if (validation) {
             const ozAlc = (newDram.proof*newDram.quantity)/200;
             const mLAlc = 29.5735*ozAlc;
             const gAlc = 0.789*mLAlc;
             const dramCals = 7*gAlc;
-            //if whiskey already exists in DB, duplicate true - change whiskeyExists property to true and add ID for POST
-            if (duplicate.status) {
-                setNewDram({...newDram, calories: parseInt(dramCals), whiskeyExists: true, whiskeyID: duplicate.param});
-            } else {
-                setNewDram({...newDram, calories: parseInt(dramCals), whiskeyExists: false, whiskeyID: ''});
-            }
+            setNewDram({...newDram, calories: parseInt(dramCals)});
         } else{
             alert('Please enter valid proof and quantity values');
             return;
         } 
-    }
-
-    //function to check if whiskey already exists in DB. If so, return true and ID
-    const checkDBForWhiskey = () => {
-        //if newDram whiskey info matches entry already in DB, change exists property to true and change whiskeyID to whiskey.id
-        for (let whiskey of whiskeyArray) {
-            if (whiskey.whiskey_name == newDram.name && whiskey.whiskey_proof == newDram.proof) {
-                console.log('DUP!');
-                return {status: true, param: whiskey.id};
-            }
-        }
-        return {status: false};
     }
 
     //function handlePost - checks if calories calculated (inputs validated by calcCals) before dispatch
