@@ -27,9 +27,10 @@ function ViewDramChild({dramList, entry}) {
             const dramCals = 7*gAlc;
             dispatch({type: 'EDIT_DRAM_CALORIES', payload: {index: index, calories: parseInt(dramCals)}});
             setEditMode(!editMode);
+            return true;
         } else{
             alert('Please enter valid proof and quantity values');
-            return;
+            return false;
         } 
     }
 
@@ -47,6 +48,19 @@ function ViewDramChild({dramList, entry}) {
             return true
     }
 
+    //function handlePut
+    const handlePut = async () =>{
+        const index = dramList.indexOf(entry);
+        const proof = entry.whiskey_proof;
+        const quantity = entry.dram_quantity;
+        const waitForCals = await calcCals(index, proof, quantity);
+        if (waitForCals) {
+            dispatch({type: 'EDIT_DB_DRAM', payload: entry});
+        } else {
+            return;
+        }
+    }
+
     return(
         <>
             <tr>
@@ -55,7 +69,7 @@ function ViewDramChild({dramList, entry}) {
                 <td>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].dram_quantity} onChange={(event) => dispatch({type: 'EDIT_DRAM_QUANTITY', payload: {index: dramList.indexOf(entry), quantity: event.target.value}})}/> : entry.dram_quantity}</td>
                 <td>{entry.dram_calories}</td>
                 <td><button onClick={() => handleDelete(entry.dram_date, entry.id)}>Delete</button></td>
-                <td>{editMode ? <button onClick={() => calcCals(dramList.indexOf(entry), entry.whiskey_proof, entry.dram_quantity)}>Confirm</button> : <button onClick={editDram}>Edit</button>}</td>
+                <td>{editMode ? <button onClick={handlePut}>Confirm</button> : <button onClick={editDram}>Edit</button>}</td>
             </tr>
         </>
     );
