@@ -33,10 +33,22 @@ function* deleteDram(action) {
     }
 }
 
+//edit dram entry by id
+function* putDram(action) {
+  try {
+    const dramID = action.payload.id;
+    const editObject = action.payload;
+    yield axios.put(`/api/dram/${dramID}`, editObject);
+  } catch(error) {
+    console.log('Error editing dram', error);
+  }
+}
+
 function* dramSaga() {
   yield takeLatest('ADD_NEW_DRAM', postDram);
   yield takeLatest('GET_DATE_DRAMS', getDrams);
   yield takeLatest('DELETE_DRAM', deleteDram);
+  yield takeLatest('EDIT_DB_DRAM', putDram);
 }
 
 export default dramSaga;
