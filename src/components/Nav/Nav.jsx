@@ -40,11 +40,11 @@ function Nav() {
           About
         </Link>
 
-        <Link className="addDramLink" to="/adddram">
+        <Link className="navLink" to="/adddram">
           Add a Dram
         </Link>
 
-        <Link className="viewDramsLink" to="/viewdrams">
+        <Link className="navLink" to="/viewdrams">
           View Drams
         </Link>
       </div>
