@@ -15,7 +15,7 @@ function* postDram(action) {
 function* getDrams(action) {
     try{
         const getDate = yield axios.get(`/api/dram/${action.payload}`);
-        yield put({type: 'SET_DRAMS', payload: getDate.data})
+        yield put({type: 'SET_DRAMS', payload: getDate.data});
     } catch(error) {
         console.log(`Error getting drams from ${action.payload}`, error);
     }
@@ -44,11 +44,22 @@ function* putDram(action) {
   }
 }
 
+//get dram data by date range
+function* getData(action) {
+  try {
+    const getDateRange = yield axios.get(`/api/dram/data`, action.payload);
+    yield put({type: 'SET_RANGE_DRAMS', payload: getDateRange.data});
+  } catch {
+    console.log('Error GETting date data in range', error);
+  }
+}
+
 function* dramSaga() {
   yield takeLatest('ADD_NEW_DRAM', postDram);
   yield takeLatest('GET_DATE_DRAMS', getDrams);
   yield takeLatest('DELETE_DRAM', deleteDram);
   yield takeLatest('EDIT_DB_DRAM', putDram);
+  yield takeLatest('GET_RANGE_DRAMS', getData);
 }
 
 export default dramSaga;
