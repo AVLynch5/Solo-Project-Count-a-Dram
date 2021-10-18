@@ -5,7 +5,7 @@ const dataReducer = (state = [], action) => {
         default:
             return state;
     }
-  };
+};
   
   // user will be on the redux state at:
   // state.dram
