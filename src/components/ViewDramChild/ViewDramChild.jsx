@@ -26,7 +26,7 @@ function ViewDramChild({dramList, entry}) {
             const gAlc = 0.789*mLAlc;
             const dramCals = 7*gAlc;
             dispatch({type: 'EDIT_DRAM_CALORIES', payload: {index: index, calories: parseInt(dramCals)}})
-            console.log(entry.dram_calories);
+            //console.log(entry.dram_calories);
             setEditMode(!editMode);
             return true;
         } else{
@@ -57,7 +57,7 @@ function ViewDramChild({dramList, entry}) {
         const waitForCals = calcCals(index, proof, quantity);
         if (waitForCals) {
             console.log(entry.dram_calories);
-            //dispatch({type: 'EDIT_DB_DRAM', payload: entry});
+            dispatch({type: 'EDIT_DB_DRAM', payload: entry});
         } else {
             return;
         }
