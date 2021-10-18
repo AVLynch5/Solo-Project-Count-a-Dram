@@ -1,16 +1,20 @@
 import React, {useState} from "react";
 import Calendar from "react-calendar";
 import moment from "moment";
+import { useDispatch } from "react-redux";
 
 
 function AnalyzeDrams(){
     const [value, setValue] = useState(new Date());
 
+    const dispatch = useDispatch();
+
     function onChange(nextValue) {
         setValue(nextValue);
         const dateToDisplay1=(moment(nextValue[0]).format('YYYY-MM-DD'));//first date selected by user when selectRange true
         const dateToDisplay2=(moment(nextValue[1]).format('YYYY-MM-DD'));//2nd date selected by user when selectRange true
-        alert(`The selected range is ${dateToDisplay1} to ${dateToDisplay2}`)
+        alert(`The selected range is ${dateToDisplay1} to ${dateToDisplay2}`);
+        dispatch({type: 'GET_RANGE_DRAMS', payload: [dateToDisplay1, dateToDisplay2]});
     }
     return(
         <>
