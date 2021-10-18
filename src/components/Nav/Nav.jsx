@@ -47,6 +47,10 @@ function Nav() {
         <Link className="navLink" to="/viewdrams">
           View Drams
         </Link>
+
+        <Link className="navLink" to="/analyzedrams">
+          Analyze Drams
+        </Link>
       </div>
     </div>
   );
