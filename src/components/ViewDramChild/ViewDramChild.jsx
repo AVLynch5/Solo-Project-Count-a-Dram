@@ -25,7 +25,8 @@ function ViewDramChild({dramList, entry}) {
             const mLAlc = 29.5735*ozAlc;
             const gAlc = 0.789*mLAlc;
             const dramCals = 7*gAlc;
-            dispatch({type: 'EDIT_DRAM_CALORIES', payload: {index: index, calories: parseInt(dramCals)}});
+            dispatch({type: 'EDIT_DRAM_CALORIES', payload: {index: index, calories: parseInt(dramCals)}})
+            console.log(entry.dram_calories);
             setEditMode(!editMode);
             return true;
         } else{
@@ -49,13 +50,14 @@ function ViewDramChild({dramList, entry}) {
     }
 
     //function handlePut
-    const handlePut = async () =>{
+    const handlePut = () =>{
         const index = dramList.indexOf(entry);
         const proof = entry.whiskey_proof;
         const quantity = entry.dram_quantity;
-        const waitForCals = await calcCals(index, proof, quantity);
+        const waitForCals = calcCals(index, proof, quantity);
         if (waitForCals) {
-            dispatch({type: 'EDIT_DB_DRAM', payload: entry});
+            console.log(entry.dram_calories);
+            //dispatch({type: 'EDIT_DB_DRAM', payload: entry});
         } else {
             return;
         }

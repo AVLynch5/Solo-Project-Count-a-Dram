@@ -126,8 +126,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
                             //Here's where whiskeyID is used to PUT dram info
                             const putDramQuery = `
                                 UPDATE "dram" SET "whiskey_id" = $1, "dram_quantity" = $2, "dram_calories" = $3
-                                WHERE "id" = $4
-                                VALUES ($1, $2, $3, $4);`;
+                                WHERE "id" = $4;`;
                             pool.query(putDramQuery, [whiskeyID, req.body.dram_quantity, req.body.dram_calories, dramID])
                                 .then((result) => {
                                     res.sendStatus(201);
@@ -148,8 +147,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
                     //Here's where whiskeyID is used to PUT dram info
                     const putDramQuery = `
                         UPDATE "dram" SET "whiskey_id" = $1, "dram_quantity" = $2, "dram_calories" = $3
-                        WHERE "id" = $4
-                        VALUES ($1, $2, $3, $4);`;
+                        WHERE "id" = $4;`;
                     pool.query(putDramQuery, [whiskeyID, req.body.dram_quantity, req.body.dram_calories, dramID])
                         .then((result) => {
                             res.sendStatus(201);
