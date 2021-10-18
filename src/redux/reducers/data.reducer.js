@@ -1,6 +1,6 @@
 const dataReducer = (state = [], action) => {
     switch (action.type) {
-        case 'GET_RANGE_DRAMS':
+        case 'SET_RANGE_DRAMS':
             return action.payload;
         default:
             return state;
