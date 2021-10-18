@@ -6,6 +6,8 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 import useDram from "../../hooks/useDram";
 import ViewDramChild from "../ViewDramChild/ViewDramChild";
+//import calendar styling
+import 'react-calendar/dist/Calendar.css';
 
 function ViewDrams() {
     const dispatch = useDispatch();
