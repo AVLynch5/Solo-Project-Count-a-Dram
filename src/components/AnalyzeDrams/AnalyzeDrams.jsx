@@ -9,16 +9,36 @@ import useData from "../../hooks/useData";
 function AnalyzeDrams(){
     const [value, setValue] = useState(new Date());
 
+    const [barStuff, setBarStuff] = useState({dates: [], calData: [], quantData: []});
+
     const dispatch = useDispatch();
 
     const dataArray = useData();
 
-    const barData = {
-        labels: [],
+    let barData = {
+        labels: barStuff.dates,
         datasets: [
             {
                 label: '# of Calories',
-                data: [],
+                data: barStuff.calData,
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                ],
+                borderWidth: 1,
+            },
+            {
+                label: '# of drams',
+                data: barStuff.quantData,
+                backgroundColor: [
+                    'rgba(255, 159, 64, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 159, 64, 1)',
+                ],
+                borderWidth: 1,
             }
         ]
     }
@@ -34,6 +54,28 @@ function AnalyzeDrams(){
             ],
         },
     };
+
+    function populateChart() {
+        let dateString='';
+        let calDataString='';
+        let quantDataString='';
+        for (let dataDay of dataArray) {
+            console.log(dataDay.dram_date, dataDay.SUM_CALS, dataDay.SUM_DRAMS);
+            if (dataArray.indexOf(dataDay) != dataArray.length-1) {
+                dateString = dateString + moment(dataDay.dram_date).format('YYYY-MM-DD') + '_';
+                calDataString = calDataString + dataDay.SUM_CALS + '_';
+                quantDataString = quantDataString + dataDay.SUM_DRAMS + '_';
+            } else {
+                dateString = dateString + moment(dataDay.dram_date).format('YYYY-MM-DD');
+                calDataString = calDataString + dataDay.SUM_CALS;
+                quantDataString = quantDataString + dataDay.SUM_DRAMS;
+            }
+
+            
+        }
+        setBarStuff({dates: dateString.split('_'), calData: calDataString.split('_'), quantData: quantDataString.split('_')});
+        console.log(barData);
+    }
 
     function onChange(nextValue) {
         setValue(nextValue);
@@ -53,12 +95,16 @@ function AnalyzeDrams(){
                         value={value}
                         selectRange={true}
                     />
-                <button>Plot Data</button>
+                <button onClick={populateChart}>Plot Data</button>
                 </div>
             </div>
             <div className="chart">
                 <h3>Plotted Data from Selected Dates</h3>
-                <Bar data={barData} options={options}/>
+                <Bar 
+                    data={barData} 
+                    options={options}
+                    className="chartDisp"
+                />
             </div>
         </>
     );
