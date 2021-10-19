@@ -21,6 +21,7 @@ function AnalyzeDrams(){
         datasets: [
             {
                 label: '# of Calories',
+                yAxisID: 'A',
                 data: barStuff.calData,
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)',
@@ -32,6 +33,7 @@ function AnalyzeDrams(){
             },
             {
                 label: '# of drams',
+                yAxisID: 'B',
                 data: barStuff.quantData,
                 backgroundColor: [
                     'rgba(255, 159, 64, 0.2)',
@@ -46,14 +48,21 @@ function AnalyzeDrams(){
 
     const options = {
         scales: {
-            yAxes: [
-                {
-                    ticks: {
-                        beginAtZero: true,
-                    },
+            A: {
+                type: 'linear',
+                position: 'left',
+                ticks: {
+                    beginAtZero: true,
                 },
-            ],
-        },
+            },
+            B: {
+                type: 'linear',
+                position: 'right',
+                ticks: {
+                    beginAtZero: true,
+                },
+            }
+        }
     };
 
     function populateChart() {
