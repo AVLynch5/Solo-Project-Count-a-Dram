@@ -94,6 +94,7 @@ function AnalyzeDrams(){
                         onChange={onChange}
                         value={value}
                         selectRange={true}
+                        className="calendarDisp"
                     />
                 <button onClick={populateChart}>Plot Data</button>
                 </div>
