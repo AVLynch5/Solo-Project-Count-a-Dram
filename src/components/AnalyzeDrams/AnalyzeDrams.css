@@ -1,0 +1,14 @@
+.calendarDisp {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.chartDisp {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+    height: 800px;
+
+}

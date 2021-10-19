@@ -4,6 +4,7 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 import { Bar } from 'react-chartjs-2';
 import useData from "../../hooks/useData";
+import './AnalyzeDrams.css';
 
 
 function AnalyzeDrams(){
