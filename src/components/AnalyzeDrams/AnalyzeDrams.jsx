@@ -2,12 +2,38 @@ import React, {useState} from "react";
 import Calendar from "react-calendar";
 import moment from "moment";
 import { useDispatch } from "react-redux";
+import { Bar } from 'react-chartjs-2';
+import useData from "../../hooks/useData";
 
 
 function AnalyzeDrams(){
     const [value, setValue] = useState(new Date());
 
     const dispatch = useDispatch();
+
+    const dataArray = useData();
+
+    const barData = {
+        labels: [],
+        datasets: [
+            {
+                label: '# of Calories',
+                data: [],
+            }
+        ]
+    }
+
+    const options = {
+        scales: {
+            yAxes: [
+                {
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                },
+            ],
+        },
+    };
 
     function onChange(nextValue) {
         setValue(nextValue);
@@ -27,10 +53,12 @@ function AnalyzeDrams(){
                         value={value}
                         selectRange={true}
                     />
+                <button>Plot Data</button>
                 </div>
             </div>
             <div className="chart">
-                <h3>Plotted Data</h3>
+                <h3>Plotted Data from Selected Dates</h3>
+                <Bar data={barData} options={options}/>
             </div>
         </>
     );
