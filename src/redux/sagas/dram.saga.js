@@ -47,9 +47,10 @@ function* putDram(action) {
 //get dram data by date range
 function* getData(action) {
   try {
-    const getDateRange = yield axios.get(`/api/dram/data`, action.payload);
+    const getDateRange = yield axios.get(`/api/dram/range/${action.payload}`);
+    console.log(action.payload);
     yield put({type: 'SET_RANGE_DRAMS', payload: getDateRange.data});
-  } catch {
+  } catch (error) {
     console.log('Error GETting date data in range', error);
   }
 }

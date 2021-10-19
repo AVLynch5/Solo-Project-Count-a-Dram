@@ -168,4 +168,28 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
         });    
 })
 
+//GET drams from date range
+router.get('/range/:rangeString', rejectUnauthenticated, (req, res) => {
+    console.log(req.params.rangeString);
+    const dateArray = req.params.rangeString.split('_');
+    const date1 = dateArray[0];
+    const date2 = dateArray[1];
+    const userID = req.user.id;
+    const queryText = `
+        SELECT "dram"."id", "whiskey"."whiskey_name", "whiskey"."whiskey_proof", "dram"."dram_quantity", "dram"."dram_calories", "dram"."dram_date"
+        FROM "whiskey"
+        INNER JOIN "dram"
+        ON "whiskey"."id" = "dram"."whiskey_id"
+        WHERE ("dram"."dram_date" BETWEEN $1 AND $2) AND "dram"."user_id" = $3
+        ORDER BY "dram"."dram_time" ASC;`;
+    pool.query(queryText, [date1, date2, userID])
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log('Error GETting data from date range', error);
+            res.sendStatus(500);
+        });
+})
+
 module.exports = router;
