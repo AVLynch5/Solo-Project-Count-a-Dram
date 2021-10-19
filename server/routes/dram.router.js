@@ -176,12 +176,11 @@ router.get('/range/:rangeString', rejectUnauthenticated, (req, res) => {
     const date2 = dateArray[1];
     const userID = req.user.id;
     const queryText = `
-        SELECT "dram"."id", "whiskey"."whiskey_name", "whiskey"."whiskey_proof", "dram"."dram_quantity", "dram"."dram_calories", "dram"."dram_date"
-        FROM "whiskey"
-        INNER JOIN "dram"
-        ON "whiskey"."id" = "dram"."whiskey_id"
+        SELECT "dram"."dram_date", SUM("dram"."dram_quantity") AS "SUM_DRAMS", SUM("dram"."dram_calories") AS "SUM_CALS"
+        FROM "dram"
         WHERE ("dram"."dram_date" BETWEEN $1 AND $2) AND "dram"."user_id" = $3
-        ORDER BY "dram"."dram_time" ASC;`;
+        GROUP BY "dram"."dram_date"
+        ORDER BY "dram"."dram_date" ASC;`;
     pool.query(queryText, [date1, date2, userID])
         .then((result) => {
             res.send(result.rows);
