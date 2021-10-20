@@ -27,12 +27,6 @@ function Nav() {
             <Link className="navLink" to="/user">
               Home
             </Link>
-
-            <Link className="navLink" to="/info">
-              Info Page
-            </Link>
-
-            <LogOutButton className="navLink" />
           </>
         )}
 
@@ -44,13 +38,26 @@ function Nav() {
           Add a Dram
         </Link>
 
-        <Link className="navLink" to="/viewdrams">
-          View Drams
-        </Link>
+        {/* If a user is logged in, show these links */}
+        {user.id && (
+          <>
+            <Link className="navLink" to="/viewdrams">
+              View Drams
+            </Link>
 
-        <Link className="navLink" to="/analyzedrams">
-          Analyze Drams
-        </Link>
+            <Link className="navLink" to="/analyzedrams">
+              Analyze Drams
+            </Link>
+
+            {/*<Link className="navLink" to="/info">
+              Info Page
+            </Link>*/}
+
+            <LogOutButton className="navLink" />
+          </>
+        )}
+
+        
       </div>
     </div>
   );
