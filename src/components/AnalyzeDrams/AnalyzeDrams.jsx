@@ -20,7 +20,7 @@ function AnalyzeDrams(){
         labels: barStuff.dates,
         datasets: [
             {
-                label: '# of Calories',
+                label: 'Calories',
                 yAxisID: 'A',
                 data: barStuff.calData,
                 backgroundColor: [
@@ -32,7 +32,7 @@ function AnalyzeDrams(){
                 borderWidth: 1,
             },
             {
-                label: '# of drams',
+                label: 'Drams',
                 yAxisID: 'B',
                 data: barStuff.quantData,
                 backgroundColor: [
@@ -47,8 +47,21 @@ function AnalyzeDrams(){
     }
 
     const options = {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Total Calorie and Dram Consumption by Date',
+            }
+        },
         scales: {
             A: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Number of Calories',
+                    color: 'rgba(54, 162, 235, 1)',
+                },
                 type: 'linear',
                 position: 'left',
                 ticks: {
@@ -56,13 +69,19 @@ function AnalyzeDrams(){
                 },
             },
             B: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Number of drams (fl. oz)',
+                    color: 'rgba(255, 159, 64, 1)',
+                },
                 type: 'linear',
                 position: 'right',
                 ticks: {
                     beginAtZero: true,
                 },
             }
-        }
+        },
     };
 
     function populateChart() {
