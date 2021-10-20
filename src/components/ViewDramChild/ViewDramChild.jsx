@@ -55,12 +55,17 @@ function ViewDramChild({dramList, entry}) {
         }
     }
 
+    //double-arrow functions to clean-up onChange 
+    const handleChange = (propertyKey) => (event) => {
+        dispatch({type: `EDIT_WHISKEY_${propertyKey}`, payload: {index: dramList.indexOf(entry), [propertyKey]: event.target.value}})
+    }
+
     return(
         <>
             <tr>
-                <td>{editMode ? <input type="text" value={dramList[dramList.indexOf(entry)].whiskey_name} onChange={(event) => dispatch({type: 'EDIT_WHISKEY_NAME', payload: {index: dramList.indexOf(entry), name: event.target.value}})}/> : entry.whiskey_name}</td>
-                <td>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].whiskey_proof} onChange={(event) => dispatch({type: 'EDIT_WHISKEY_PROOF', payload: {index: dramList.indexOf(entry), proof: event.target.value}})}/> : entry.whiskey_proof}</td>
-                <td>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].dram_quantity} onChange={(event) => dispatch({type: 'EDIT_DRAM_QUANTITY', payload: {index: dramList.indexOf(entry), quantity: event.target.value}})}/> : entry.dram_quantity}</td>
+                <td>{editMode ? <input type="text" value={dramList[dramList.indexOf(entry)].whiskey_name} onChange={handleChange('NAME')}/> : entry.whiskey_name}</td>
+                <td>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].whiskey_proof} onChange={handleChange('PROOF')}/> : entry.whiskey_proof}</td>
+                <td>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].dram_quantity} onChange={handleChange('QUANTITY')}/> : entry.dram_quantity}</td>
                 <td>{entry.dram_calories}</td>
                 <td><button onClick={() => handleDelete(entry.dram_date, entry.id)}>Delete</button></td>
                 <td>{editMode ? <button onClick={handlePut}>Confirm</button> : <button onClick={editDram}>Edit</button>}</td>
@@ -70,3 +75,6 @@ function ViewDramChild({dramList, entry}) {
 }
 
 export default ViewDramChild;
+
+//prev dispatch
+//(event) => dispatch({type: 'EDIT_WHISKEY_NAME', payload: {index: dramList.indexOf(entry), name: event.target.value}})
