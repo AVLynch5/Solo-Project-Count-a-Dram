@@ -119,3 +119,40 @@ This code is also heavily commented. We recommend reading through the comments, 
 ## Update Documentation
 
 Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+
+## Checklist
+- [ ] Set up database in Postico. Copy to database.sql and change database name in pool.js
+- [ ] Install dependencies (moment, MUI, react-calendar, chart.js, chartjs-2)
+- [ ] create .env file in root and change session password
+- [ ] Add A Dram component
+  - [ ] Basic Form: Name/Proof/Quantity inputs, calculate button, clear button, add dram button
+  - [ ] state variable (object) to hold user inputs
+  - [ ] Validation function - validate user inputs
+  - [ ] Calculate Calories function - calculate calories using user inputs
+  - [ ] POST - dispatch object to server 
+  - [ ] Create dram router - server REST method
+  - [ ] Create dram saga - client axios function
+- [ ] View Drams Component (and ViewDramChildren - child of .map)
+  - [ ] Import and set up Calendar - clicking date displays date in alert
+  - [ ] Create dram reducer and store instance
+  - [ ] Saga and server functions - GET dram entries by date, put to reducer
+  - [ ] map dram objects in reducer to table
+  - [ ] Add edit and delete buttons
+  - [ ] Saga and server delete functions - delete by dram ID
+  - [ ] 'edit' mode - create state variable (boolean) to toggle true/false
+  - [ ] conditional rendering - if edit mode false, display info from dram reducer. If true, display input fields populated w/ reducer info.
+  - [ ] conditional rendering - if edit mode false, display edit button. If true, display confirm button.
+  - [ ] Add onChange to cond. rend. inputs - changing inputs dispatches changes to dram reducer. Also add actions to dram reducer to update reducer state.
+  - [ ] Add validateNums and calcCals functions to validate edited information on confirm button click
+  - [ ] also on confirm button click - dispatch modified object (saga function and server-side PUT)
+- [ ] Analyze Drams component
+  - [ ] Calendar - selectRange prop to select two dates values
+  - [ ] dispatch - send both dates and GET all data b/t those two dates (SQL query - GET dates, sum drams, sum calories)
+  - [ ] data reducer to hold calorie/dram/date data retrieved from database on calendar click
+  - [ ] function to take data from data reducer and reformat for Chart.js - store in state variable
+  - [ ] button to call data restructure function
+  - [ ] Chart - display restructured data stored in state variable
+- [ ] Add A Dram component accessible w/o logging in - use cond. rend. to display add dram button only if logged in
+- [ ] Finalize component access - Which to display w/o login, which to display w/ login (w/o - display Home and Add A Dram, w/ Display all)
+- [ ] Finalize components/routing - which components will appear on nav bar
+- [ ] Theming/Stlying with MUI - TBA
