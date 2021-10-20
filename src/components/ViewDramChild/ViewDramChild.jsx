@@ -17,22 +17,12 @@ function ViewDramChild({dramList, entry}) {
     }
 
     //function calCals to calculate calories given user input
-    const calcCals = (index, proof, quantity) => {
-        //input validation here-ensure user inputted numbers into proof/quantity fields. Also ensure proof <= 200
-        const validation = validateNums(proof, quantity);
-        if (validation) {
-            const ozAlc = (proof*quantity)/200;
-            const mLAlc = 29.5735*ozAlc;
-            const gAlc = 0.789*mLAlc;
-            const dramCals = 7*gAlc;
-            dispatch({type: 'EDIT_DRAM_CALORIES', payload: {index: index, calories: parseInt(dramCals)}})
-            console.log(entry.dram_calories);
-            setEditMode(!editMode);
-            return true;
-        } else{
-            alert('Please enter valid proof and quantity values');
-            return false;
-        } 
+    const calcCals = (proof, quantity) => {
+        const ozAlc = (proof*quantity)/200;
+        const mLAlc = 29.5735*ozAlc;
+        const gAlc = 0.789*mLAlc;
+        const dramCals = 7*gAlc;
+        return parseInt(dramCals); 
     }
 
     //function to validate inputted numbers
@@ -54,11 +44,13 @@ function ViewDramChild({dramList, entry}) {
         const index = dramList.indexOf(entry);
         const proof = entry.whiskey_proof;
         const quantity = entry.dram_quantity;
-        const waitForCals = calcCals(index, proof, quantity);
-        if (waitForCals) {
-            console.log(entry.dram_calories);
-            dispatch({type: 'EDIT_DB_DRAM', payload: entry});
+        if (validateNums(proof, quantity)) {
+            const waitForCals = calcCals(proof, quantity);
+            dispatch({type: 'EDIT_DRAM_CALORIES', payload: {index: index, calories: waitForCals}})
+            dispatch({type: 'EDIT_DB_DRAM', payload: {...entry, dram_calories: waitForCals}});
+            setEditMode(!editMode);
         } else {
+            alert('Please enter valid proof and quantity values');
             return;
         }
     }

@@ -105,10 +105,6 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 //PUT - edit dram with dramID using info from payload
 router.put('/:id', rejectUnauthenticated, (req, res) => {
     const dramID = req.params.id;
-    const ozAlc = (req.body.whiskey_proof*req.body.dram_quantity)/200;
-    const mLAlc = 29.5735*ozAlc;
-    const gAlc = 0.789*mLAlc;
-    const dramCals = parseInt(7*gAlc);
     //Phase 1: Check "whiskey" for entries matching the user's inputted information
     const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2);`;
     pool.query(searchQuery, [req.body.whiskey_name, req.body.whiskey_proof])
@@ -131,7 +127,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
                             const putDramQuery = `
                                 UPDATE "dram" SET "whiskey_id" = $1, "dram_quantity" = $2, "dram_calories" = $3
                                 WHERE "id" = $4;`;
-                            pool.query(putDramQuery, [whiskeyID, req.body.dram_quantity, dramCals, dramID])
+                            pool.query(putDramQuery, [whiskeyID, req.body.dram_quantity, req.body.dram_calories, dramID])
                                 .then((result) => {
                                     res.sendStatus(201);
                                 })
@@ -152,7 +148,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
                     const putDramQuery = `
                         UPDATE "dram" SET "whiskey_id" = $1, "dram_quantity" = $2, "dram_calories" = $3
                         WHERE "id" = $4;`;
-                    pool.query(putDramQuery, [whiskeyID, req.body.dram_quantity, dramCals, dramID])
+                    pool.query(putDramQuery, [whiskeyID, req.body.dram_quantity, req.body.dram_calories, dramID])
                         .then((result) => {
                             res.sendStatus(201);
                         })
