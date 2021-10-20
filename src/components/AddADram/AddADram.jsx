@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import useUser from "../../hooks/useUser";
 
 function AddADram(){
     //dispatch
     const dispatch = useDispatch();
+
+    const user = useUser();
 
     //state var
     const [newDram, setNewDram] = useState({name: '', proof: '', quantity: '', calories: ''});
@@ -69,7 +72,7 @@ function AddADram(){
                 <button onClick={clearInputs}>Clear form</button>
             </form>
             <p>Calories: {newDram.calories}</p>
-            <button onClick={handlePost}>Add this dram</button>
+            {user.id != null ? <button onClick={handlePost}>Add this dram</button> : ''}
         </>
     );
 }
