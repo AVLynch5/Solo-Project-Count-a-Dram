@@ -60,14 +60,19 @@ function AddADram(){
         setNewDram({name: '', proof: '', quantity: '', calories: ''});
     }
 
+    //double-arrow functions to clean-up onChange 
+    const handleChange = (propertyKey) => (event) => {
+        setNewDram({...newDram, [propertyKey]: event.target.value})
+    }
+
     return(
         <>
             <h1>Add a Dram</h1>
             <p>{JSON.stringify(newDram)}</p>
             <form onSubmit={calcCals}>
-                <input placeholder="whiskey name" type="text" value={newDram.name} onChange={(event) => setNewDram({...newDram, name: event.target.value})}/>
-                <input required type="number" placeholder="whiskey proof" value={newDram.proof} onChange={(event) => setNewDram({...newDram, proof: event.target.value})}/>
-                <input required type="number" placeholder="Oz whiskey" value={newDram.quantity} onChange={(event) => setNewDram({...newDram, quantity: event.target.value})}/>
+                <input placeholder="whiskey name" type="text" value={newDram.name} onChange={handleChange('name')}/>
+                <input required type="number" placeholder="whiskey proof" value={newDram.proof} onChange={handleChange('proof')}/>
+                <input required type="number" placeholder="Oz whiskey" value={newDram.quantity} onChange={handleChange('quantity')}/>
                 <button type="submit">Calculate Calories</button>
                 <button onClick={clearInputs}>Clear form</button>
             </form>
