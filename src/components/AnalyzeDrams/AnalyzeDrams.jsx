@@ -8,7 +8,7 @@ import './AnalyzeDrams.css';
 import {Chart} from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 Chart.register(annotationPlugin);
-import {Box} from '@mui/material';
+import {Paper} from '@mui/material';
 
 
 function AnalyzeDrams(){
@@ -158,6 +158,8 @@ function AnalyzeDrams(){
     }
     return(
         <>
+        <div className="wholePage">
+        <Paper className="pageContainer" elevation={10} sx={{backgroundColor: '#F09F41'}}>
             <div className="calendar">
                 <h3>Pick Two Dates - Date Range</h3>
                 <div className="calContainer">
@@ -167,8 +169,10 @@ function AnalyzeDrams(){
                         selectRange={true}
                         className="calendarDisp"
                     />
-                <button onClick={populateChart}>Plot Data</button>
                 </div>
+            </div>
+            <div className="buttonDiv">
+                <button onClick={populateChart}>Plot Data</button>
             </div>
             <div className="chart">
                 <h3>Plotted Data from Selected Dates</h3>
@@ -179,6 +183,8 @@ function AnalyzeDrams(){
                         //className="chartDisp"
                     />
                 </div>
+            </div>
+            </Paper>
             </div>
         </>
     );
