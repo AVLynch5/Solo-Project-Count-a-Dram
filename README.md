@@ -152,7 +152,10 @@ Customize this ReadMe and the code comments in this project to read less like a 
   - [ ] function to take data from data reducer and reformat for Chart.js - store in state variable
   - [ ] button to call data restructure function
   - [ ] Chart - display restructured data stored in state variable
+  - [ ] chart - add annotations - horizontal lines indicating avg #calories and average #drams
 - [ ] Add A Dram component accessible w/o logging in - use cond. rend. to display add dram button only if logged in
 - [ ] Finalize component access - Which to display w/o login, which to display w/ login (w/o - display Home and Add A Dram, w/ Display all)
 - [ ] Finalize components/routing - which components will appear on nav bar
+- [ ] Add code comments to ViewDramChild, AnalyzeDrams, and dram.router (POST and PUT)
 - [ ] Theming/Stlying with MUI - TBA
+- [ ] README.MD NEEDS SOME LOVE
