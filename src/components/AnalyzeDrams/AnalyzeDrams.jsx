@@ -8,6 +8,7 @@ import './AnalyzeDrams.css';
 import {Chart} from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 Chart.register(annotationPlugin);
+import {Box} from '@mui/material';
 
 
 function AnalyzeDrams(){
@@ -59,7 +60,8 @@ function AnalyzeDrams(){
     }
 
     const options = {
-        responsive: true,
+        //responsive: true,
+        maintainAspectRatio: false,
         scales: {
             A: {
                 display: true,
@@ -170,11 +172,13 @@ function AnalyzeDrams(){
             </div>
             <div className="chart">
                 <h3>Plotted Data from Selected Dates</h3>
-                <Bar 
-                    data={barData} 
-                    options={options}
-                    className="chartDisp"
-                />
+                <div className="chartBox">
+                    <Bar 
+                        data={barData} 
+                        options={options}
+                        //className="chartDisp"
+                    />
+                </div>
             </div>
         </>
     );

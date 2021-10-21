@@ -8,7 +8,11 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 800px;
-    height: 800px;
+}
 
+.chartBox {
+    position: relative;
+    margin: auto;
+    height: 66vh;
+    width: 66vw;
 }
