@@ -91,6 +91,7 @@ function AnalyzeDrams(){
             }
         },
         plugins: {
+            legend: false,
             annotation: {
                 annotations: [
                     {

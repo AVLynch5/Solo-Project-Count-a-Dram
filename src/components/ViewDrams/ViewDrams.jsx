@@ -8,6 +8,7 @@ import useDram from "../../hooks/useDram";
 import ViewDramChild from "../ViewDramChild/ViewDramChild";
 //import calendar styling
 import 'react-calendar/dist/Calendar.css';
+import { Paper } from '@mui/material';
 
 function ViewDrams() {
     const dispatch = useDispatch();
@@ -28,12 +29,15 @@ function ViewDrams() {
 
     return(
         <>
+            <div className="wholePage">
+            <Paper className="pageContainer" elevation={10} sx={{backgroundColor: '#F09F41'}}>
             <div className="calendar">
                 <h3>Pick a Date</h3>
                 <div className="calContainer">
                     <Calendar 
                         onChange={onChange}
                         value={value}
+                        className="calendarDisp"
                     />
                 </div>
             </div>
@@ -58,6 +62,8 @@ function ViewDrams() {
                         </tbody>
                     </table>
                 </div>
+            </div>
+            </Paper>
             </div>
         </>
     );
