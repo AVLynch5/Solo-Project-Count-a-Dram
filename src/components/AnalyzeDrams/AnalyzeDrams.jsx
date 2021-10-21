@@ -90,7 +90,7 @@ function AnalyzeDrams(){
                         borderColor: 'black',
                         value: 500,
                         label: {
-                          content: 'Line annotation at y = 500',
+                          content: 'Average Calories',
                           enabled: true
                         },
                     },
