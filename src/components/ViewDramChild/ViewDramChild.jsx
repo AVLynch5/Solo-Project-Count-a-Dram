@@ -18,10 +18,10 @@ function ViewDramChild({dramList, entry}) {
 
     //function calCals to calculate calories given user input
     const calcCals = (proof, quantity) => {
-        const ozAlc = (proof*quantity)/200;
-        const mLAlc = 29.5735*ozAlc;
-        const gAlc = 0.789*mLAlc;
-        const dramCals = 7*gAlc;
+        const ozAlc = (proof*quantity)/200;//(proof/2) -> % alcohol, (% alcohol/100) -> decimal alcohol, (decimal alcohol * quantity in oz) -> oz alcohol
+        const mLAlc = 29.5735*ozAlc;//(29.5735 mL/oz)* oz Alcohol -> mL Alcohol
+        const gAlc = 0.789*mLAlc;//(0.789g/mL)* mL Alcohol -> g alcohol
+        const dramCals = 7*gAlc;//(7 calories/g)* g alcohol -> calories alcohol
         return parseInt(dramCals); 
     }
 
