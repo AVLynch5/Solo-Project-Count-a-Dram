@@ -5,7 +5,10 @@ import { useDispatch } from "react-redux";
 import { Bar } from 'react-chartjs-2';
 import useData from "../../hooks/useData";
 import './AnalyzeDrams.css';
-import * as ChartAnnotation from 'chartjs-plugin-annotation';
+import {Chart} from 'chart.js';
+import annotationPlugin from 'chartjs-plugin-annotation';
+Chart.register(annotationPlugin);
+
 
 function AnalyzeDrams(){
     const [value, setValue] = useState(new Date());
@@ -48,28 +51,6 @@ function AnalyzeDrams(){
 
     const options = {
         responsive: true,
-        annotation: {
-            annotations: [
-                {
-                    type: 'line',
-                    mode: 'horizontal',
-                    scaleID: 'A',
-                    borderWidth: 3,
-                    borderColor: 'black',
-                    value: 500,
-                    label: {
-                      content: 'Line annotation at y = 500',
-                      enabled: true
-                    },
-                },
-            ],
-        },
-        plugins: {
-            title: {
-                display: true,
-                text: 'Total Calorie and Dram Consumption by Date',
-            },
-        },
         scales: {
             A: {
                 display: true,
@@ -97,6 +78,28 @@ function AnalyzeDrams(){
                     beginAtZero: true,
                 },
             }
+        },
+        plugins: {
+            annotation: {
+                annotations: [
+                    {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'A',
+                        borderWidth: 3,
+                        borderColor: 'black',
+                        value: 500,
+                        label: {
+                          content: 'Line annotation at y = 500',
+                          enabled: true
+                        },
+                    },
+                ],
+            },
+            title: {
+                display: true,
+                text: 'Total Calorie and Dram Consumption by Date',
+            },
         },
     };
 
@@ -149,7 +152,6 @@ function AnalyzeDrams(){
                 <Bar 
                     data={barData} 
                     options={options}
-                    plugins={[ChartAnnotation]}
                     className="chartDisp"
                 />
             </div>
