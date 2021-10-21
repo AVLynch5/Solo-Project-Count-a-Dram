@@ -103,7 +103,58 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 })
 
 //PUT - edit dram with dramID using info from payload
-router.put('/:id', rejectUnauthenticated, (req, res) => {
+router.put('/:id', rejectUnauthenticated, async (req, res) => {
+    const dramID = req.params.id;
+    try {
+        const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2);`;
+        const searchResult = await pool.query(searchQuery, [req.body.whiskey_name, req.body.whiskey_proof]);
+        const whiskeyExists = (searchResult.rows.length == 1 ? true : false);
+        switch (whiskeyExists) {
+            case false:
+                const insertWhiskeyQuery = `INSERT INTO "whiskey" ("whiskey_name", "whiskey_proof") VALUES ($1, $2) RETURNING "id";`;
+                const postResult = await pool.query(insertWhiskeyQuery, [req.body.whiskey_name, req.body.whiskey_proof]);
+                const whiskeyID1 = postResult.rows[0].id;
+                const putDramQuery1 = `UPDATE "dram" SET "whiskey_id" = $1, "dram_quantity" = $2, "dram_calories" = $3 WHERE "id" = $4;`;
+                const putResult1 = await pool.query(putDramQuery1, [whiskeyID1, req.body.dram_quantity, req.body.dram_calories, dramID]);
+                break;
+            case true:
+                const whiskeyID2 = searchResult.rows[0].id;  
+                const putDramQuery2 = `UPDATE "dram" SET "whiskey_id" = $1, "dram_quantity" = $2, "dram_calories" = $3 WHERE "id" = $4;`;
+                const putResult2 = await pool.query(putDramQuery2, [whiskeyID2, req.body.dram_quantity, req.body.dram_calories, dramID]);
+                break;
+        }
+        res.sendStatus(201);
+    } catch (error) {
+        console.log('Error', error);
+        res.sendStatus(500);
+    }
+})
+
+//GET drams from date range
+router.get('/range/:rangeString', rejectUnauthenticated, (req, res) => {
+    console.log(req.params.rangeString);
+    const dateArray = req.params.rangeString.split('_');
+    const date1 = dateArray[0];
+    const date2 = dateArray[1];
+    const userID = req.user.id;
+    const queryText = `
+        SELECT "dram"."dram_date", SUM("dram"."dram_quantity") AS "SUM_DRAMS", SUM("dram"."dram_calories") AS "SUM_CALS"
+        FROM "dram"
+        WHERE ("dram"."dram_date" BETWEEN $1 AND $2) AND "dram"."user_id" = $3
+        GROUP BY "dram"."dram_date"
+        ORDER BY "dram"."dram_date" ASC;`;
+    pool.query(queryText, [date1, date2, userID])
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log('Error GETting data from date range', error);
+            res.sendStatus(500);
+        });
+})
+
+/* //PUT - edit dram with dramID using info from payload
+router.put('/:id', rejectUnauthenticated, async (req, res) => {
     const dramID = req.params.id;
     //Phase 1: Check "whiskey" for entries matching the user's inputted information
     const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2);`;
@@ -162,29 +213,6 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
         .catch((error) => {
             console.log('Error GETting whiskey info from DB', error);
         });    
-})
-
-//GET drams from date range
-router.get('/range/:rangeString', rejectUnauthenticated, (req, res) => {
-    console.log(req.params.rangeString);
-    const dateArray = req.params.rangeString.split('_');
-    const date1 = dateArray[0];
-    const date2 = dateArray[1];
-    const userID = req.user.id;
-    const queryText = `
-        SELECT "dram"."dram_date", SUM("dram"."dram_quantity") AS "SUM_DRAMS", SUM("dram"."dram_calories") AS "SUM_CALS"
-        FROM "dram"
-        WHERE ("dram"."dram_date" BETWEEN $1 AND $2) AND "dram"."user_id" = $3
-        GROUP BY "dram"."dram_date"
-        ORDER BY "dram"."dram_date" ASC;`;
-    pool.query(queryText, [date1, date2, userID])
-        .then((result) => {
-            res.send(result.rows);
-        })
-        .catch((error) => {
-            console.log('Error GETting data from date range', error);
-            res.sendStatus(500);
-        });
-})
+}) */
 
 module.exports = router;
