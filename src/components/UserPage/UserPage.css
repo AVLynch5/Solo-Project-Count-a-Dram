@@ -14,14 +14,14 @@
 
 .userContainer {
     border: 3px solid brown;
-    height: 26em;
+    height: auto;
 }
 
-.container h2 {
+.userContainer h2 {
     text-align: center;
 }
 
-.container p {
+.userContainer p {
     text-align: center;
 }
 

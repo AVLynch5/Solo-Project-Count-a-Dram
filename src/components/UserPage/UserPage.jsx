@@ -13,17 +13,17 @@ function UserPage() {
     <div className="wholePage">
         <Paper className="pageContainer" elevation={10} sx={{backgroundColor: '#F09F41'}}>
           <Grid container justifyContent="space-between">
-            <Grid item lg={3} xs={12}>
+            <Grid item lg={3} md={2} sm={2} xs={1}>
               <img className="image-thumbnail" src={Image} alt="thumbnail" />
             </Grid>
-            <Grid item lg={6} xs={12}>
+            <Grid item lg={6} md={8} sm={8} xs={10}>
               <div className="userContainer">
                 <h2>Welcome, {user.username}!</h2>
                 <p>Your ID is: {user.id}</p>
                 <LogOutButton className="btn" />
               </div>
             </Grid>
-            <Grid item lg={3} xs={12} className="Right">
+            <Grid item lg={3} md={2} sm={2} xs={1} className="Right">
               <img className="image-thumbnail" src={Image} alt="thumbnail" />
             </Grid>
           </Grid>
