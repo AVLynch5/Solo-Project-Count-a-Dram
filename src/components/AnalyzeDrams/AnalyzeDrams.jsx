@@ -191,7 +191,7 @@ function AnalyzeDrams(){
                 </div>
             </div>
             <div className="buttonDiv">
-                <Button variant='contained' endIcon={<BarChartIcon fontSize="small"/>} sx={{color: 'black', backgroundColor: 'white' }} onClick={populateChart}>Plot Data</Button>
+                <Button variant='outlined' endIcon={<BarChartIcon fontSize="small"/>} sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown'}} onClick={populateChart}>Plot Data</Button>
             </div>
             <div className="chart">
                 <h3>Plotted Data from Selected Dates</h3>
