@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import useUser from "../../hooks/useUser";
 import {Paper} from '@mui/material';
 import './AddADram.css';
+import {Button} from '@mui/material';
+import {TextField} from '@mui/material';
 
 function AddADram(){
     //dispatch
@@ -75,17 +77,18 @@ function AddADram(){
             {/* <p>{JSON.stringify(newDram)}</p> */}
             <div className="form">
                 <form className="centerText" onSubmit={calcCals}>
-                    <input placeholder="whiskey name" type="text" value={newDram.name} onChange={handleChange('name')}/>
-                    <input required type="number" placeholder="whiskey proof" value={newDram.proof} onChange={handleChange('proof')}/>
-                    <input required type="number" placeholder="Oz whiskey" value={newDram.quantity} onChange={handleChange('quantity')}/>
-                    <button type="submit">Calculate Calories</button>
-                    <button onClick={clearInputs}>Clear form</button>
+                    <TextField variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} placeholder="whiskey name" type="text" value={newDram.name} onChange={handleChange('name')}/>
+                    <TextField variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} required type="number" placeholder="whiskey proof" value={newDram.proof} onChange={handleChange('proof')}/>
+                    <TextField variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} required type="number" placeholder="Oz whiskey" value={newDram.quantity} onChange={handleChange('quantity')}/>
+                    <br/>
+                    <Button variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginTop: 0.5, marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} type="submit">Calculate Calories</Button>
+                    <Button variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginTop: 0.5, marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5, }} onClick={clearInputs}>Clear form</Button>
                 </form>
             </div>
             <div className="caloriesBox">
                 <p className="leftText">Calories: {newDram.calories}</p>
             </div>
-            {user.id != null ? <button className="centerButton" onClick={handlePost}>Add this dram</button> : ''}
+            {user.id != null ? <Button variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5}} className="centerButton" onClick={handlePost}>Add this dram</Button> : ''}
             </>
         </Paper>
         </div>

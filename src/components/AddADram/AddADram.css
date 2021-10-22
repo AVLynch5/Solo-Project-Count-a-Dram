@@ -31,7 +31,8 @@
     margin-right: auto;
     width: 200px;
     border: 3px solid brown;
-    margin-bottom: 0.75em;
+    margin-bottom: 0.5em;
     margin-top: 0.25em;
     padding: 0.25em;
+    background-color: white;
 }
