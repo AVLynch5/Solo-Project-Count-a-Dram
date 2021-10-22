@@ -78,3 +78,7 @@ Grid
   flex-basis: 100%;
   max-width: 100%;
 }
+
+.container h2 {
+  text-align: center;
+}
