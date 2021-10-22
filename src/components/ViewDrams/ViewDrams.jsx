@@ -16,6 +16,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import './ViewDrams.css';
+import swal from 'sweetalert';
 
 function ViewDrams() {
     const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function ViewDrams() {
     function onChange(nextValue) {
         setValue(nextValue);
         const dateToDisplay = moment(nextValue).format('YYYY-MM-DD');
-        alert(`The date selected is ${dateToDisplay}`);
+        swal(`The date selected is ${dateToDisplay}`);
         dispatch({type: 'GET_DATE_DRAMS', payload: dateToDisplay});
     }
 
