@@ -158,4 +158,5 @@ Customize this ReadMe and the code comments in this project to read less like a 
 - [ ] Finalize components/routing - which components will appear on nav bar
 - [ ] Add code comments to ViewDramChild, AnalyzeDrams, and dram.router (POST and PUT)
 - [ ] Theming/Stlying with MUI - TBA
+- [ ] ChartJS responsive chart - responsive text size resizing w/ page resize
 - [ ] README.MD NEEDS SOME LOVE
