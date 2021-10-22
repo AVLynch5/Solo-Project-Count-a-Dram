@@ -88,7 +88,7 @@ function AddADram(){
             <div className="caloriesBox">
                 <p className="leftText">Calories: {newDram.calories}</p>
             </div>
-            {user.id != null ? <Button variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5}} className="centerButton" onClick={handlePost}>Add this dram</Button> : ''}
+            {user.id != null ? <Button variant='outlined' sx={{display: 'block', marginLeft: 'auto', marginRight: 'auto', color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5}} onClick={handlePost}>Add this dram</Button> : ''}
             </>
         </Paper>
         </div>
