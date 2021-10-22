@@ -11,6 +11,7 @@ Chart.register(annotationPlugin);
 import {Paper} from '@mui/material';
 import {Button} from '@mui/material';
 import swal from 'sweetalert';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 
 function AnalyzeDrams(){
@@ -190,7 +191,7 @@ function AnalyzeDrams(){
                 </div>
             </div>
             <div className="buttonDiv">
-                <Button variant='contained' sx={{color: 'black' }} onClick={populateChart}>Plot Data</Button>
+                <Button variant='contained' endIcon={<BarChartIcon fontSize="small"/>} sx={{color: 'black' }} onClick={populateChart}>Plot Data</Button>
             </div>
             <div className="chart">
                 <h3>Plotted Data from Selected Dates</h3>
