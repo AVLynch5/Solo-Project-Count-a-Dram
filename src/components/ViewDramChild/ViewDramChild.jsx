@@ -1,5 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
 
 function ViewDramChild({dramList, entry}) {
     const dispatch = useDispatch();
@@ -62,14 +64,14 @@ function ViewDramChild({dramList, entry}) {
 
     return(
         <>
-            <tr>
-                <td>{editMode ? <input type="text" value={dramList[dramList.indexOf(entry)].whiskey_name} onChange={handleChange('NAME')}/> : entry.whiskey_name}</td>
-                <td>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].whiskey_proof} onChange={handleChange('PROOF')}/> : entry.whiskey_proof}</td>
-                <td>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].dram_quantity} onChange={handleChange('QUANTITY')}/> : entry.dram_quantity}</td>
-                <td>{entry.dram_calories}</td>
-                <td><button onClick={() => handleDelete(entry.dram_date, entry.id)}>Delete</button></td>
-                <td>{editMode ? <button onClick={handlePut}>Confirm</button> : <button onClick={editDram}>Edit</button>}</td>
-            </tr>
+            <TableRow>
+                <TableCell>{editMode ? <input type="text" value={dramList[dramList.indexOf(entry)].whiskey_name} onChange={handleChange('NAME')}/> : entry.whiskey_name}</TableCell>
+                <TableCell>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].whiskey_proof} onChange={handleChange('PROOF')}/> : entry.whiskey_proof}</TableCell>
+                <TableCell>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].dram_quantity} onChange={handleChange('QUANTITY')}/> : entry.dram_quantity}</TableCell>
+                <TableCell>{entry.dram_calories}</TableCell>
+                <TableCell><button onClick={() => handleDelete(entry.dram_date, entry.id)}>Delete</button></TableCell>
+                <TableCell>{editMode ? <button onClick={handlePut}>Confirm</button> : <button onClick={editDram}>Edit</button>}</TableCell>
+            </TableRow>
         </>
     );
 }

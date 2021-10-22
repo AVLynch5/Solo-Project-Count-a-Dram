@@ -9,6 +9,13 @@ import ViewDramChild from "../ViewDramChild/ViewDramChild";
 //import calendar styling
 import 'react-calendar/dist/Calendar.css';
 import { Paper } from '@mui/material';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import './ViewDrams.css';
 
 function ViewDrams() {
     const dispatch = useDispatch();
@@ -43,25 +50,25 @@ function ViewDrams() {
             </div>
             <div className="dramData">
                 <h3>Drams from Selected Date</h3>
-                <div className="dataContainer">
-                    <table className="dataTable">
-                        <thead>
-                            <tr>
-                                <th>Whiskey Name</th>
-                                <th>Whiskey Proof</th>
-                                <th>Dram Quantity</th>
-                                <th>Dram Calories</th>
-                                <th>Delete</th>
-                                <th>Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <TableContainer className="dataContainer">
+                    <Table className="table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Whiskey Name</TableCell>
+                                <TableCell>Whiskey Proof</TableCell>
+                                <TableCell>Dram Quantity</TableCell>
+                                <TableCell>Dram Calories</TableCell>
+                                <TableCell>Delete</TableCell>
+                                <TableCell>Edit</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
                             {dramList.map((entry) => {
                                 return(<ViewDramChild key={entry.id} dramList={dramList} entry={entry} />)
                             })}
-                        </tbody>
-                    </table>
-                </div>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </div>
             </Paper>
             </div>
