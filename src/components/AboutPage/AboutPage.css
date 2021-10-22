@@ -16,6 +16,7 @@
     border: 3px solid brown;
     height: auto;
     background-color: white;
+    padding: 0.5em;
 }
 
 .text-Space h3 {
@@ -30,4 +31,7 @@
 .image-thumbnail {
     max-height: 350px;
     width: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

@@ -14,7 +14,7 @@ function AboutPage() {
     <>
     <div className="wholePage">
         <Paper className="pageContainer" elevation={10} sx={{backgroundColor: '#F09F41'}}>
-          <Grid container justifyContent="space-between">
+          <Grid container /* justifyContent="space-between" */>
             <Grid item lg={3} md={2} sm={2} xs={1}>
               <img className="image-thumbnail" src={Image} alt="thumbnail" />
             </Grid>
