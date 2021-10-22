@@ -33,7 +33,7 @@ Button
   border-color: black;
   border-width: 1px 1px 3px;
   border-radius: 4px;
-  background-color: #FA7F43;
+  background-color: #F09F41;
   color: #f8f8f8;
   font-size: 1.1rem;
   outline: 0;
@@ -56,25 +56,27 @@ Button
 }
 
 .btn:hover {
-  background-color: #008183;
+  background-color: #FA7F43;
   text-decoration: none;
 }
 
 /* This line makes the "Register" and "Login" buttons look like links */
 .btn_asLink {
-  padding: 0;
+  padding: 1;
   border-width: 0;
   border-bottom: 1px solid #444;
   border-radius: 0;
   background: none;
   font: inherit;
-  color: #444;
+  color: white;
+  border: 3px solid brown;
+  background-color: black;
 }
 
 .btn_asLink:hover {
   background-color: transparent;
-  border-color: #008183;
-  color: #008183;
+  border-color: #FA7F43;
+  color: #FA7F43;
 }
 
 /* --------------------------------------------------------------------------------
