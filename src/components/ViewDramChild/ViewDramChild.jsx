@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import DeleteIcon from '@mui/icons-material/Delete';
 import swal from 'sweetalert';
+import Button from '@mui/material/Button';
 
 function ViewDramChild({dramList, entry}) {
     const dispatch = useDispatch();
@@ -84,12 +85,12 @@ function ViewDramChild({dramList, entry}) {
     return(
         <>
             <TableRow>
-                <TableCell>{editMode ? <input type="text" value={dramList[dramList.indexOf(entry)].whiskey_name} onChange={handleChange('NAME')}/> : entry.whiskey_name}</TableCell>
-                <TableCell>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].whiskey_proof} onChange={handleChange('PROOF')}/> : entry.whiskey_proof}</TableCell>
-                <TableCell>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].dram_quantity} onChange={handleChange('QUANTITY')}/> : entry.dram_quantity}</TableCell>
-                <TableCell>{entry.dram_calories}</TableCell>
-                <TableCell><button onClick={() => handleDelete(entry.dram_date, entry.id)}>{<DeleteIcon />}</button></TableCell>
-                <TableCell>{editMode ? <button onClick={handlePut}>{<DoneIcon />}</button> : <button onClick={editDram}>{<EditIcon />}</button>}</TableCell>
+                <TableCell align={"center"}>{editMode ? <input type="text" value={dramList[dramList.indexOf(entry)].whiskey_name} onChange={handleChange('NAME')}/> : entry.whiskey_name}</TableCell>
+                <TableCell align={"center"}>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].whiskey_proof} onChange={handleChange('PROOF')}/> : entry.whiskey_proof}</TableCell>
+                <TableCell align={"center"}>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].dram_quantity} onChange={handleChange('QUANTITY')}/> : entry.dram_quantity}</TableCell>
+                <TableCell align={"center"}>{entry.dram_calories}</TableCell>
+                <TableCell align={"center"}><Button onClick={() => handleDelete(entry.dram_date, entry.id)}>{<DeleteIcon />}</Button></TableCell>
+                <TableCell align={"center"}>{editMode ? <Button onClick={handlePut}>{<DoneIcon />}</Button> : <Button onClick={editDram}>{<EditIcon />}</Button>}</TableCell>
             </TableRow>
         </>
     );
