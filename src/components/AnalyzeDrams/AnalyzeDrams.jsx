@@ -69,6 +69,9 @@ function AnalyzeDrams(){
                     display: true,
                     text: 'Number of Calories',
                     color: 'rgba(54, 162, 235, 1)',
+                    font: {
+                        size: 16
+                    }
                 },
                 type: 'linear',
                 position: 'left',
@@ -82,6 +85,9 @@ function AnalyzeDrams(){
                     display: true,
                     text: 'Number of drams (fl. oz)',
                     color: 'rgba(255, 159, 64, 1)',
+                    font: {
+                        size: 16
+                    }
                 },
                 type: 'linear',
                 position: 'right',
@@ -103,7 +109,10 @@ function AnalyzeDrams(){
                         value: parseInt(average(barStuff.calData)),
                         label: {
                           content: `Average Calories: ${parseInt(average(barStuff.calData))}`,
-                          enabled: true
+                          enabled: true,
+                          font: {
+                              size: 10,
+                          }
                         },
                     },
                     {
@@ -115,7 +124,10 @@ function AnalyzeDrams(){
                         value: parseInt(average(barStuff.quantData)),
                         label: {
                           content: `Average Drams: ${parseInt(average(barStuff.quantData))}`,
-                          enabled: true
+                          enabled: true,
+                          font: {
+                              size: 10,
+                          }
                         },
                     },
                 ],
@@ -123,6 +135,9 @@ function AnalyzeDrams(){
             title: {
                 display: true,
                 text: 'Total Calorie and Dram Consumption by Date',
+                font: {
+                    size: 18
+                }
             },
         },
     };
