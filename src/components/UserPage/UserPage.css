@@ -12,7 +12,7 @@
     transform: scaleX(-1); 
 }
 
-.container {
+.userContainer {
     border: 3px solid brown;
     height: 26em;
 }

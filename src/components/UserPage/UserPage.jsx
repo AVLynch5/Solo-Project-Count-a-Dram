@@ -17,7 +17,7 @@ function UserPage() {
               <img className="image-thumbnail" src={Image} alt="thumbnail" />
             </Grid>
             <Grid item lg={6} xs={12}>
-              <div className="container">
+              <div className="userContainer">
                 <h2>Welcome, {user.username}!</h2>
                 <p>Your ID is: {user.id}</p>
                 <LogOutButton className="btn" />
