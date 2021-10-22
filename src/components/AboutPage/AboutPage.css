@@ -15,6 +15,7 @@
 .text-Space {
     border: 3px solid brown;
     height: auto;
+    background-color: white;
 }
 
 .text-Space h3 {
