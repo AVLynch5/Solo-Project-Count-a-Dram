@@ -157,6 +157,6 @@ Customize this ReadMe and the code comments in this project to read less like a 
 - [ ] Finalize component access - Which to display w/o login, which to display w/ login (w/o - display Home and Add A Dram, w/ Display all)
 - [ ] Finalize components/routing - which components will appear on nav bar
 - [ ] Add code comments to ViewDramChild, AnalyzeDrams, and dram.router (POST and PUT)
-- [ ] Theming/Stlying with MUI - TBA
+- [ ] Theming/Stlying with MUI - about/user page drams should be centered in grids, responsive resizing
 - [ ] ChartJS responsive chart - responsive text size resizing w/ page resize
 - [ ] README.MD NEEDS SOME LOVE
