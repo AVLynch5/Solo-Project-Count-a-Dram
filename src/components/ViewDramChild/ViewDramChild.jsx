@@ -2,18 +2,37 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+import EditIcon from '@mui/icons-material/Edit';
+import DoneIcon from '@mui/icons-material/Done';
+import DeleteIcon from '@mui/icons-material/Delete';
+import swal from 'sweetalert';
 
 function ViewDramChild({dramList, entry}) {
     const dispatch = useDispatch();
 
      //function to handle DELETE and make dispatch. Requires dram id to DELETE and date to GET updated dram array
     const handleDelete = (dramDate, dramID) => {
-        dispatch({type: 'DELETE_DRAM', payload: {date: dramDate, id: dramID}});
+        swal({
+            title: 'Really delete this dram entry?',
+            text: 'Once deleted, this dram entry cannot be recovered!',
+            icon: 'warning',
+            buttons: ['HECK no', 'Delete!'],
+            dangerMode: true,
+        }).then((confirmDelete) => {
+            if (confirmDelete) {
+                swal('The dram entry was deleted', {button: 'Great!', icon: 'success',});
+                dispatch({type: 'DELETE_DRAM', payload: {date: dramDate, id: dramID}});
+            } else {
+                swal('The dram entry was not deleted', {button: 'Excellent!'});
+                return;//cancels function, deleteFeedback not called
+            }
+        })
     }
 
     //state var to toggle b/t editMode
     const [editMode, setEditMode] = useState(false);
-
+    
+    //editMode toggle function
     const editDram = () => {
         setEditMode(!editMode);
     }
@@ -52,7 +71,7 @@ function ViewDramChild({dramList, entry}) {
             dispatch({type: 'EDIT_DB_DRAM', payload: {...entry, dram_calories: waitForCals}});
             setEditMode(!editMode);
         } else {
-            alert('Please enter valid proof and quantity values');
+            swal('Please enter valid proof and quantity values');
             return;
         }
     }
@@ -69,8 +88,8 @@ function ViewDramChild({dramList, entry}) {
                 <TableCell>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].whiskey_proof} onChange={handleChange('PROOF')}/> : entry.whiskey_proof}</TableCell>
                 <TableCell>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].dram_quantity} onChange={handleChange('QUANTITY')}/> : entry.dram_quantity}</TableCell>
                 <TableCell>{entry.dram_calories}</TableCell>
-                <TableCell><button onClick={() => handleDelete(entry.dram_date, entry.id)}>Delete</button></TableCell>
-                <TableCell>{editMode ? <button onClick={handlePut}>Confirm</button> : <button onClick={editDram}>Edit</button>}</TableCell>
+                <TableCell><button onClick={() => handleDelete(entry.dram_date, entry.id)}>{<DeleteIcon />}</button></TableCell>
+                <TableCell>{editMode ? <button onClick={handlePut}>{<DoneIcon />}</button> : <button onClick={editDram}>{<EditIcon />}</button>}</TableCell>
             </TableRow>
         </>
     );
