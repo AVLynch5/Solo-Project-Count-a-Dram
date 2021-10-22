@@ -56,7 +56,7 @@ function ViewDrams() {
                             <TableRow>
                                 <TableCell>Whiskey Name</TableCell>
                                 <TableCell>Whiskey Proof</TableCell>
-                                <TableCell>Dram Quantity</TableCell>
+                                <TableCell>Dram Quantity (oz)</TableCell>
                                 <TableCell>Dram Calories</TableCell>
                                 <TableCell>Delete</TableCell>
                                 <TableCell>Edit</TableCell>

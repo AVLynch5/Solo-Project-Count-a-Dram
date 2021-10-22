@@ -1,0 +1,38 @@
+.wholePage {
+    background-image: url(https://media.istockphoto.com/photos/stack-of-wooden-whiskey-barrels-picture-id175945178?k=20&m=175945178&s=612x612&w=0&h=baSmZp1MLUSuwEOggur5oRlRqcINAQdkm-Z2VBOrpF8=);
+    min-height: auto;
+}
+
+.pageContainer {
+    width: 78%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1%;
+}
+
+.centerText {
+    text-align: center;
+}
+
+.leftText {
+    text-align: center;
+    font-size: 20px;
+}
+
+.centerButton {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.caloriesBox {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    border: 3px solid brown;
+    margin-bottom: 0.75em;
+    margin-top: 0.25em;
+    padding: 0.25em;
+}

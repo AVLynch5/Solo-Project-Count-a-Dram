@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import useUser from "../../hooks/useUser";
+import {Paper} from '@mui/material';
+import './AddADram.css';
 
 function AddADram(){
     //dispatch
@@ -66,19 +68,27 @@ function AddADram(){
     }
 
     return(
-        <>
-            <h1>Add a Dram</h1>
-            <p>{JSON.stringify(newDram)}</p>
-            <form onSubmit={calcCals}>
-                <input placeholder="whiskey name" type="text" value={newDram.name} onChange={handleChange('name')}/>
-                <input required type="number" placeholder="whiskey proof" value={newDram.proof} onChange={handleChange('proof')}/>
-                <input required type="number" placeholder="Oz whiskey" value={newDram.quantity} onChange={handleChange('quantity')}/>
-                <button type="submit">Calculate Calories</button>
-                <button onClick={clearInputs}>Clear form</button>
-            </form>
-            <p>Calories: {newDram.calories}</p>
-            {user.id != null ? <button onClick={handlePost}>Add this dram</button> : ''}
-        </>
+        <div className="wholePage">
+        <Paper className="pageContainer" elevation={10} sx={{backgroundColor: '#F09F41'}}>
+            <>
+            <h3>Add a Dram</h3>
+            {/* <p>{JSON.stringify(newDram)}</p> */}
+            <div className="form">
+                <form className="centerText" onSubmit={calcCals}>
+                    <input placeholder="whiskey name" type="text" value={newDram.name} onChange={handleChange('name')}/>
+                    <input required type="number" placeholder="whiskey proof" value={newDram.proof} onChange={handleChange('proof')}/>
+                    <input required type="number" placeholder="Oz whiskey" value={newDram.quantity} onChange={handleChange('quantity')}/>
+                    <button type="submit">Calculate Calories</button>
+                    <button onClick={clearInputs}>Clear form</button>
+                </form>
+            </div>
+            <div className="caloriesBox">
+                <p className="leftText">Calories: {newDram.calories}</p>
+            </div>
+            {user.id != null ? <button className="centerButton" onClick={handlePost}>Add this dram</button> : ''}
+            </>
+        </Paper>
+        </div>
     );
 }
 
