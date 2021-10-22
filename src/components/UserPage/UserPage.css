@@ -1,0 +1,31 @@
+.pageContainer {
+    width: 78%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1%;
+}
+
+.Right {
+    /* Code to mirror an image over the y axis */
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1); 
+}
+
+.container {
+    border: 3px solid brown;
+    height: 26em;
+}
+
+.container h2 {
+    text-align: center;
+}
+
+.container p {
+    text-align: center;
+}
+
+.btn {
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -28,7 +28,7 @@ Button
 -------------------------------------------------------------------------------- */
 
 .btn {
-  display: inline-block;
+  display: block;
   padding: 10px 20px;
   border-color: #014041;
   border-width: 1px 1px 3px;
