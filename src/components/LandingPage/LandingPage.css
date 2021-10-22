@@ -82,3 +82,11 @@ Grid
 .container h2 {
   text-align: center;
 }
+
+.toasts {
+  border: 3px solid brown;
+  height: auto;
+  background-color: white;
+  padding: 0.5em;
+  margin: 0.5em;
+}
