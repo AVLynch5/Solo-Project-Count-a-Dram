@@ -46,6 +46,7 @@ function LoginForm() {
             InputLabelProps={{ style: { fontSize: 18 } }}
             size="small"
             sx={{marginBottom: 0.75}}
+            fullWidth
           />
         </label>
       </div>
@@ -62,6 +63,7 @@ function LoginForm() {
             InputLabelProps={{ style: { fontSize: 18 } }}
             size="small"
             sx={{marginBottom: 0.75}}
+            fullWidth
           />
         </label>
       </div>
