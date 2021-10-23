@@ -1,4 +1,6 @@
-# **Count A Dram** <img src="./public/android-chrome-192x192.png" width="40%" style="margin: 10px">
+# **Count A Dram** 
+
+<img src="./public/android-chrome-192x192.png" width="40%" style="margin: 10px">
 
 ## Description
 ---
