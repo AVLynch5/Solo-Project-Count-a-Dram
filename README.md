@@ -115,7 +115,7 @@ _Duration: Two-week Sprint_
   - [ ] Buttons, TextFields, Paper, Grid, icons
   - [ ] In-line sx prop styling
 - [ ] React-Chartjs-2 annotation styling -> dashed horizontal lines, thinner labels, find a way to prevent overlap
-- [ ] README.MD NEEDS SOME LOVE
+- [ ] README.MD NEEDS SOME LOVE - Add pictures w/ details or gifs!
 - [ ] Add presentation data to database 
 - [ ] ChartJS responsive chart - responsive text resizing w/ page resize (STRETCH)
 - [ ] Edit MUI styles to change TextField label focused text color
