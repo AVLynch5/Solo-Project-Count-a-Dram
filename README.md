@@ -157,6 +157,14 @@ Customize this ReadMe and the code comments in this project to read less like a 
 - [ ] Finalize component access - Which to display w/o login, which to display w/ login (w/o - display Home and Add A Dram, w/ Display all)
 - [ ] Finalize components/routing - which components will appear on nav bar
 - [ ] Add code comments to ViewDramChild, AnalyzeDrams, and dram.router (POST and PUT)
-- [ ] Theming/Stlying with MUI - about/user page drams should be centered in grids, responsive resizing
-- [ ] ChartJS responsive chart - responsive text size resizing w/ page resize
+- [ ] Theming/Stlying with MUI
+  - [ ] about/user page drams should be centered in grids, w/ responsive image resizing
+  - [ ] Buttons, TextFields, Paper, Grid, icons
+  - [ ] In-line sx prop styling
+- [ ] React-Chartjs-2 annotation styling -> dashed horizontal lines, thinner labels, find a way to prevent overlap
 - [ ] README.MD NEEDS SOME LOVE
+- [ ] Add presentation data to database 
+- [ ] ChartJS responsive chart - responsive text resizing w/ page resize (STRETCH)
+- [ ] Edit MUI styles to change TextField label focused text color
+- [ ] MUI adornments for text fields - adding 'oz' unit to quantity field
+- [ ] Clean up 'Add A Dram' Textfield styling -> code currently messy b/c all styling done in-line with sx prop. Instead, use MUI's 'styled()' utility to create a reusable styled TextField
