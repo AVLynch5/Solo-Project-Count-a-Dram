@@ -5,6 +5,7 @@ import {Paper} from '@mui/material';
 import './AddADram.css';
 import {Button} from '@mui/material';
 import {TextField} from '@mui/material';
+import InputAdornment from '@mui/material/InputAdornment';
 
 function AddADram(){
     //dispatch
@@ -77,9 +78,9 @@ function AddADram(){
             {/* <p>{JSON.stringify(newDram)}</p> */}
             <div className="form">
                 <form className="centerText" onSubmit={calcCals}>
-                    <TextField size="small" variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} placeholder="whiskey name" type="text" value={newDram.name} onChange={handleChange('name')}/>
-                    <TextField size="small" variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} required type="number" inputProps={{step: "any"}} placeholder="whiskey proof" value={newDram.proof} onChange={handleChange('proof')}/>
-                    <TextField size="small" variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} required type="number" inputProps={{step: "any"}} placeholder="Oz whiskey" value={newDram.quantity} onChange={handleChange('quantity')}/>
+                    <TextField size="small" variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} inputProps={{style: { fontSize: 22 }}} InputLabelProps={{ style: { fontSize: 22 } }} label="Whiskey Name" type="text" value={newDram.name} onChange={handleChange('name')}/>
+                    <TextField size="small" variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} required type="number" inputProps={{step: "any", style: { fontSize: 22 }}} InputLabelProps={{ style: { fontSize: 22 } }} label="Whiskey Proof" value={newDram.proof} onChange={handleChange('proof')}/>
+                    <TextField size="small" variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} required type="number" inputProps={{step: "any", style: { fontSize: 22 }}} label="Quantity (oz)" InputLabelProps={{ style: { fontSize: 22 } }} value={newDram.quantity} onChange={handleChange('quantity')}/>
                     <br/>
                     <Button variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginTop: 0.5, marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} type="submit">Calculate Calories</Button>
                     <Button variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginTop: 0.5, marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5, }} onClick={clearInputs}>Clear form</Button>
