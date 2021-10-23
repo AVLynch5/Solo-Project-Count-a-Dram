@@ -30,3 +30,14 @@
     padding: 0.25em;
     background-color: white;
 }
+
+/* Attempting to change TextField focused label color */
+.MuiInputLabel-root.Mui-focused {
+    color: black;
+}
+
+/* Attempted to change Textfield focused outline color */
+.MuiOutlinedInput-root.Mui-focused {
+    color: black;
+}
+
