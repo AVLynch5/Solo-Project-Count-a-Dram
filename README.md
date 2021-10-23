@@ -1,6 +1,8 @@
 # **Count A Dram** 
 
-<img src="./public/android-chrome-192x192.png" width="40%" style="margin-left: auto; margin-right: auto; margin-bottom: 10px; margin-top: 10px;">
+<p align-"center" width="100%">
+<img src="./public/android-chrome-192x192.png" width="33%" >
+</p>
 
 ## Description
 ---
