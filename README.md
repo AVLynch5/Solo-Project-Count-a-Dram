@@ -1,6 +1,6 @@
 # **Count A Dram** 
 
-<p align-"center" width="100%">
+<p align="center" width="100%">
 <img src="./public/android-chrome-192x192.png" width="33%" >
 </p>
 
