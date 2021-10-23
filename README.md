@@ -1,5 +1,4 @@
-# **Count A Dram** <img src="./build/android-chrome-192x192.png" width="40% >
----
+# **Count A Dram** <img src="./public/android-chrome-192x192.png" width="40%">
 
 ## Description
 ---
@@ -16,7 +15,7 @@ _Duration: Two-week Sprint_
 
 <p>The application was designed for use on laptops and desktops, but its components are responsive and perfectly functional on mobile devices as well.</p>
 
-##### **Disclaimer - This app does not require or promote the consumption of whiskey or other alcoholic beverages. Any persons using this application should be aware and respectful of their local liquor laws. Water is calorie-free!**
+##### <i>**Disclaimer - This app does not require or promote the consumption of whiskey or other alcoholic beverages. Any persons using this application should be aware and respectful of their local liquor laws. Water is calorie-free!**</i>
 
 ## Pre-requites
 ---
