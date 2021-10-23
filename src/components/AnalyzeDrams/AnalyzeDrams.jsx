@@ -107,7 +107,8 @@ function AnalyzeDrams(){
                         type: 'line',
                         mode: 'horizontal',
                         scaleID: 'A',
-                        borderWidth: 2,
+                        borderDash: [10,5],
+                        borderWidth: 1,
                         borderColor: 'rgba(54, 162, 235, 1)',
                         value: parseInt(average(barStuff.calData)),
                         label: {
@@ -115,14 +116,18 @@ function AnalyzeDrams(){
                           enabled: true,
                           font: {
                               size: 10,
-                          }
+                          },
+                          position: 'start',
+                          xPadding: 2,
+                          yPadding: 1,
                         },
                     },
                     {
                         type: 'line',
                         mode: 'horizontal',
                         scaleID: 'B',
-                        borderWidth: 2,
+                        borderDash: [10,5],
+                        borderWidth: 1,
                         borderColor: 'rgba(255, 159, 64, 1)',
                         value: parseInt(average(barStuff.quantData)),
                         label: {
@@ -130,7 +135,10 @@ function AnalyzeDrams(){
                           enabled: true,
                           font: {
                               size: 10,
-                          }
+                          },
+                          position: 'end',
+                          xPadding: 2,
+                          yPadding: 1,
                         },
                     },
                 ],
