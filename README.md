@@ -119,6 +119,7 @@ _Duration: Two-week Sprint_
 - [ ] Add presentation data to database 
 - [ ] ChartJS responsive chart - responsive text resizing w/ page resize (STRETCH)
 - [ ] Edit MUI styles to change TextField label focused text color
+- [ ] Delete info page and remove info page comment form nav
   - [ ] see [source1](https://mui.com/customization/how-to-customize/) and [source2](https://smartdevpreneur.com/override-textfield-border-color-in-material-ui/)
 - [ ] MUI adornments for text fields - adding 'oz' unit to quantity field
-- [ ] Clean up 'Add A Dram' Textfield styling -> code currently messy b/c all styling done in-line with sx prop. Instead, use MUI's 'styled()' utility to create a reusable styled TextField
+- [ ] Clean up 'Add A Dram' Textfield styling -> code currently messy b/c all styling done in-line with sx prop. Instead, use MUI's 'styled()' utility to create a reusable styled TextField. See About page and footer page!
