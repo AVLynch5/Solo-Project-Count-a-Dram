@@ -4,6 +4,21 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 //POST
+/**
+ * @api {post} / Create New Dram Entry
+ * @apiPermission user
+ * @apiName PostNewDram
+ * @apiGroup Dram
+ * @apiDescription This route creates a new dram entry. Dram entry parameters should be passed through the 
+ * request body. UserID should be passed through the request user.
+ * 
+ * @apiParam {Object} content Mandatory dram information
+ * @apiParam {Number} userID Mandatory id of user
+ * 
+ * @apiSuccessExample {json} Success-Response:
+ *      HTTP/1.1 201 OK
+ * 
+ */
 router.post('/', rejectUnauthenticated, async (req, res) => {
     try {
         const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2);`;
@@ -31,6 +46,20 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 })
 
 //GET drams from date
+/**
+ * @api {get} /:id Dram List
+ * @apiPermission user
+ * @apiName GetDramsByDate
+ * @apiGroup Dram
+ * @apiDescription This route returns an array/list of dram objects with a particular dram_date. 
+ * The date should be passed through the request params and the user should be passed through the request user.
+ * 
+ * @apiParam {String} dateID Mandatory date of dram objects to fetch. YYYY-MM-DD format.
+ * @apiParam {Number} userID Mandatory id of user
+ * 
+ * @apiSuccess {Object} dataObject object with data property. object.data is an array of dram objects.
+ * 
+ */
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     const dateID = req.params.id;
     const userID = req.user.id;
@@ -52,6 +81,20 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 })
 
 //DELETE dram with ID
+/**
+ * @api {delete} /:id Delete Dram
+ * @apiPermission user
+ * @apiName DeleteDram
+ * @apiGroup Dram
+ * @apiDescription This route deletes a dram object with a particular id. 
+ * The dramID should be passed through the request params.
+ * 
+ * @apiParam {Number} userID Mandatory id of user
+ * 
+ * @apiSuccessExample {json} Success-Response:
+ *      HTTP/1.1 201 OK
+ * 
+ */
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const dramID = req.params.id;
     //userID kind of unnecessary because only the user's drams are GETted and displayed
@@ -68,6 +111,22 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 })
 
 //PUT - edit dram with dramID using info from payload
+/**
+ * @api {put} /:id Edit Dram Entry
+ * @apiPermission user
+ * @apiName EditDram
+ * @apiGroup Dram
+ * @apiDescription This route edits an existing dram entry. Dram content should be passed through the 
+ * request body. UserID should be passed through the request user. dramId should be passed through the request params.
+ * 
+ * @apiParam {Object} content Mandatory dram information
+ * @apiParam {Number} userID Mandatory id of user
+ * @apiParam {number} dramID Mandatory id of dram
+ * 
+ * @apiSuccessExample {json} Success-Response:
+ *      HTTP/1.1 201 OK
+ * 
+ */
 router.put('/:id', rejectUnauthenticated, async (req, res) => {
     const dramID = req.params.id;
     try {
@@ -96,6 +155,20 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
 })
 
 //GET drams from date range
+/**
+ * @api {get} /range/:rangeString Dram Data List
+ * @apiPermission user
+ * @apiName GetDataByDate
+ * @apiGroup Dram
+ * @apiDescription This route returns an array of dram data objects. The date string should be passed 
+ * through the request params and the user should be passed through the request user.
+ * 
+ * @apiParam {String} rangeString Mandatory date range of dram data objects to fetch. YYYY-MM-DD_YYYY-MM-DD format.
+ * @apiParam {Number} userID Mandatory id of user
+ * 
+ * @apiSuccess {Object} dataObject object with data property. object.data is an array of dram data objects.
+ * 
+ */
 router.get('/range/:rangeString', rejectUnauthenticated, (req, res) => {
     console.log(req.params.rangeString);
     const dateArray = req.params.rangeString.split('_');

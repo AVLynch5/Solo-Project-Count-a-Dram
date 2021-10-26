@@ -40,7 +40,14 @@
     "server": "nodemon --watch server server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "apidoc": "apidoc -i server/routes/ -o apidoc/"
+  },
+  "apidoc": {
+    "name": "Count_A_Dram_API",
+    "version": "0.1.0",
+    "description": "apiDoc for Count_A_Dram",
+    "title": "Count_A_Dram API Doc"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
