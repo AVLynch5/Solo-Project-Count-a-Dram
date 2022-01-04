@@ -30,9 +30,10 @@ function ViewDrams() {
     //function to change calendar date on click and GET drams by date
     function onChange(nextValue) {
         setValue(nextValue);
-        const dateToDisplay = moment(nextValue).format('YYYY-MM-DD');
+        const dateToSend = moment(nextValue).format();
+        const dateToDisplay = moment(nextValue).format("dddd, MMMM Do YYYY");
         swal(`The date selected is ${dateToDisplay}`);
-        dispatch({type: 'GET_DATE_DRAMS', payload: dateToDisplay});
+        dispatch({type: 'GET_DATE_DRAMS', payload: dateToSend});
     }
 
     return(

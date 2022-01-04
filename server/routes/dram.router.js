@@ -64,11 +64,11 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     const dateID = req.params.id;
     const userID = req.user.id;
     const queryText = `
-        SELECT "dram"."id", "whiskey"."whiskey_name", "whiskey"."whiskey_proof", "dram"."dram_quantity", "dram"."dram_calories", "dram"."dram_date"
+        SELECT "dram"."id", "whiskey"."whiskey_name", "whiskey"."whiskey_proof", "dram"."dram_quantity", "dram"."dram_calories", "dram"."dram_time"
         FROM "whiskey"
         INNER JOIN "dram"
         ON "whiskey"."id" = "dram"."whiskey_id"
-        WHERE ("dram"."dram_date" = $1 AND "dram"."user_id" = $2)
+        WHERE "dram"."dram_time"::timestamptz::date = $1 AND "dram"."user_id" = $2
         ORDER BY "dram"."dram_time" ASC;`;
     pool.query(queryText, [dateID, userID])
         .then((result) => {
@@ -176,11 +176,11 @@ router.get('/range/:rangeString', rejectUnauthenticated, (req, res) => {
     const date2 = dateArray[1];
     const userID = req.user.id;
     const queryText = `
-        SELECT "dram"."dram_date", SUM("dram"."dram_quantity") AS "SUM_DRAMS", SUM("dram"."dram_calories") AS "SUM_CALS"
+        SELECT "dram"."dram_time"::timestamptz::date, SUM("dram"."dram_quantity") AS "SUM_DRAMS", SUM("dram"."dram_calories") AS "SUM_CALS"
         FROM "dram"
-        WHERE ("dram"."dram_date" BETWEEN $1 AND $2) AND "dram"."user_id" = $3
-        GROUP BY "dram"."dram_date"
-        ORDER BY "dram"."dram_date" ASC;`;
+        WHERE ("dram"."dram_time"::timestamptz::date BETWEEN $1 AND $2) AND "dram"."user_id" = $3
+        GROUP BY "dram"."dram_time"::timestamptz::date
+        ORDER BY "dram"."dram_time"::timestamptz::date ASC;`;
     pool.query(queryText, [date1, date2, userID])
         .then((result) => {
             res.send(result.rows);
