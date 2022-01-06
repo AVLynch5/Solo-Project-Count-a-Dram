@@ -5,6 +5,8 @@ import {Paper} from '@mui/material';
 import './AddADram.css';
 import {Button} from '@mui/material';
 import {TextField} from '@mui/material';
+import DatePicker from 'react-date-picker';
+import moment from 'moment';
 
 
 function AddADram(){
@@ -16,6 +18,7 @@ function AddADram(){
     //state vars
     const [newDram, setNewDram] = useState({name: '', proof: '', quantity: '', calories: ''});
     const [checked, setChecked] = useState(false);
+    const [value, onChange] = useState(new Date());
 
     //function calCals to calculate calories given user input
     const calcCals = (event) => {
@@ -97,7 +100,7 @@ function AddADram(){
             </div>
             {user.id != null ? <Button variant='outlined' sx={{display: 'block', marginLeft: 'auto', marginRight: 'auto', color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5}} onClick={handlePost}>Add this dram</Button> : ''}
             <label><input type="checkbox" checked={checked} onChange={handleCheckbox}/>This is a retroactive dram addition</label>
-            {checked ? <p>Pick a date</p> : ""}
+            {checked ? <DatePicker value={value} onChange={onChange}></DatePicker> : <p>{JSON.stringify(moment.utc(value).local().format())}</p>}
             </>
         </Paper>
         </div>
