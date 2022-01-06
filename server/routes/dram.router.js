@@ -29,13 +29,13 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
                 const insertWhiskeyQuery = `INSERT INTO "whiskey" ("whiskey_name", "whiskey_proof") VALUES ($1, $2) RETURNING "id";`;
                 const postResult = await pool.query(insertWhiskeyQuery, [req.body.name, req.body.proof]);
                 const whiskeyID1 = postResult.rows[0].id;
-                const insertDramQuery1 = `INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories") VALUES ($1, $2, $3, $4);`;
-                const postResult1 = await pool.query(insertDramQuery1, [req.user.id, whiskeyID1, req.body.quantity, req.body.calories]);
+                const insertDramQuery1 = `INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories", "dram_time") VALUES ($1, $2, $3, $4, $5);`;
+                const postResult1 = await pool.query(insertDramQuery1, [req.user.id, whiskeyID1, req.body.quantity, req.body.calories, req.body.timeDate]);
                 break;
             case true:
                 const whiskeyID2 = searchResult.rows[0].id;  
-                const insertDramQuery2 = `INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories") VALUES ($1, $2, $3, $4);`;
-                const postResult2 = await pool.query(insertDramQuery2, [req.user.id, whiskeyID2, req.body.quantity, req.body.calories]);
+                const insertDramQuery2 = `INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories", "dram_time") VALUES ($1, $2, $3, $4, $5);`;
+                const postResult2 = await pool.query(insertDramQuery2, [req.user.id, whiskeyID2, req.body.quantity, req.body.calories, req.body.timeDate]);
                 break;
         }
         res.sendStatus(201);
