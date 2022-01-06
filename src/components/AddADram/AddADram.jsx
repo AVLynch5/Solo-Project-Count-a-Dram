@@ -13,8 +13,9 @@ function AddADram(){
 
     const user = useUser();
 
-    //state var
+    //state vars
     const [newDram, setNewDram] = useState({name: '', proof: '', quantity: '', calories: ''});
+    const [checked, setChecked] = useState(false);
 
     //function calCals to calculate calories given user input
     const calcCals = (event) => {
@@ -70,6 +71,11 @@ function AddADram(){
         setNewDram({...newDram, [propertyKey]: event.target.value})
     }
 
+    //function to handle checkbox toggle true/false
+    const handleCheckbox = () => {
+        setChecked(!checked);
+    }
+
     return(
         <div className="wholePage">
         <Paper className="pageContainer" elevation={10} sx={{backgroundColor: '#F09F41'}}>
@@ -90,6 +96,8 @@ function AddADram(){
                 <p className="leftText">Calories: {newDram.calories}</p>
             </div>
             {user.id != null ? <Button variant='outlined' sx={{display: 'block', marginLeft: 'auto', marginRight: 'auto', color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5}} onClick={handlePost}>Add this dram</Button> : ''}
+            <label><input type="checkbox" checked={checked} onChange={handleCheckbox}/>This is a retroactive dram addition</label>
+            {checked ? <p>Pick a date</p> : ""}
             </>
         </Paper>
         </div>
