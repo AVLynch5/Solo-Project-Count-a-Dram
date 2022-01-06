@@ -16,7 +16,7 @@ function AddADram(){
     const user = useUser();
 
     //state vars
-    const [newDram, setNewDram] = useState({name: '', proof: '', quantity: '', calories: ''});
+    const [newDram, setNewDram] = useState({name: '', proof: '', quantity: '', calories: '', timeDate: JSON.stringify(moment.utc(value).local().format())});
     const [checked, setChecked] = useState(false);
     const [value, onChange] = useState(new Date());
 
