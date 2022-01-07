@@ -35,9 +35,3 @@
 .MuiInputLabel-root.Mui-focused {
     color: black;
 }
-
-/* Attempted to change Textfield focused outline color */
-.MuiOutlinedInput-root.Mui-focused {
-    color: black;
-}
-
