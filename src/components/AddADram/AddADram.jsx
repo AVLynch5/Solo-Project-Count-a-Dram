@@ -5,7 +5,9 @@ import {Paper} from '@mui/material';
 import './AddADram.css';
 import {Button} from '@mui/material';
 import {TextField} from '@mui/material';
-import DatePicker from 'react-date-picker';
+import DateTimePicker from '@mui/lab/DateTimePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import moment from 'moment';
 
 
@@ -16,9 +18,9 @@ function AddADram(){
     const user = useUser();
 
     //state vars
-    const [newDram, setNewDram] = useState({name: '', proof: '', quantity: '', calories: '', timeDate: JSON.stringify(moment.utc(value).local().format())});
+    const [newDram, setNewDram] = useState({name: '', proof: '', quantity: '', calories: ''});
     const [checked, setChecked] = useState(false);
-    const [value, onChange] = useState(new Date());
+    const [value, setValue] = useState(new Date());
 
     //function calCals to calculate calories given user input
     const calcCals = (event) => {
@@ -32,7 +34,7 @@ function AddADram(){
             const dramCals = 7*gAlc;
             setNewDram({...newDram, calories: parseInt(dramCals)});
         } else{
-            alert('Please enter valid proof and quantity values');
+            swal('Please enter valid proof and quantity values');
             return;
         } 
     }
@@ -41,10 +43,10 @@ function AddADram(){
     const handlePost = () => {
         //check - user must have entered info and calculated to POST
         if (!newDram.calories) {
-            alert('Please enter dram information and calculate');
+            swal('Please enter dram information and calculate');
             return;
         } else {
-            dispatch({type: 'ADD_NEW_DRAM', payload: newDram});
+            dispatch({type: 'ADD_NEW_DRAM', payload: {...newDram, timeDate: moment.utc(value).local().format()}});
             clearInputs();
             //after dispatch, route user to view drams component
         }  
@@ -67,6 +69,7 @@ function AddADram(){
     const clearInputs = () => {
         //consider validation sweetAlert - ensure user wants to clear
         setNewDram({name: '', proof: '', quantity: '', calories: ''});
+        setValue(new Date());
     }
 
     //double-arrow functions to clean-up onChange 
@@ -98,9 +101,10 @@ function AddADram(){
             <div className="caloriesBox">
                 <p className="leftText">Calories: {newDram.calories}</p>
             </div>
-            {user.id != null ? <Button variant='outlined' sx={{display: 'block', marginLeft: 'auto', marginRight: 'auto', color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5}} onClick={handlePost}>Add this dram</Button> : ''}
             <label><input type="checkbox" checked={checked} onChange={handleCheckbox}/>This is a retroactive dram addition</label>
-            {checked ? <DatePicker value={value} onChange={onChange}></DatePicker> : <p>{JSON.stringify(moment.utc(value).local().format())}</p>}
+            <br></br>
+            {checked ? <LocalizationProvider dateAdapter={AdapterDateFns}><DateTimePicker renderInput={(props) => <TextField {...props} />} value={value} onChange={(newValue) => {setValue(newValue)}}/></LocalizationProvider> : ""}
+            {user.id != null ? <Button variant='outlined' sx={{display: 'block', marginLeft: 'auto', marginRight: 'auto', color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5}} onClick={handlePost}>Add this dram</Button> : ''}
             </>
         </Paper>
         </div>
