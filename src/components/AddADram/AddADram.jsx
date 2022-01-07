@@ -82,6 +82,8 @@ function AddADram(){
         setChecked(!checked);
     }
 
+    const currentTime = moment.utc(Date()).local().format('YYYY-MM-DD');
+
     return(
         <div className="wholePage">
         <Paper className="pageContainer" elevation={10} sx={{backgroundColor: '#F09F41'}}>
@@ -103,7 +105,7 @@ function AddADram(){
             </div>
             <label><input type="checkbox" checked={checked} onChange={handleCheckbox}/>This is a retroactive dram addition</label>
             <br></br>
-            {checked ? <LocalizationProvider dateAdapter={AdapterDateFns}><DateTimePicker renderInput={(props) => <TextField {...props} />} value={value} onChange={(newValue) => {setValue(newValue)}}/></LocalizationProvider> : ""}
+            {checked ? <LocalizationProvider dateAdapter={AdapterDateFns}><DateTimePicker maxDate={new Date(currentTime)} renderInput={(props) => <TextField {...props} />} value={value} onChange={(newValue) => {setValue(newValue)}}/></LocalizationProvider> : <p>{currentTime}</p>}
             {user.id != null ? <Button variant='outlined' sx={{display: 'block', marginLeft: 'auto', marginRight: 'auto', color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5}} onClick={handlePost}>Add this dram</Button> : ''}
             </>
         </Paper>
