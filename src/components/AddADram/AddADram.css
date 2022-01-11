@@ -27,11 +27,22 @@
     border: 3px solid brown;
     margin-bottom: 0.5em;
     margin-top: 0.25em;
-    padding: 0.25em;
+    padding: 0.1em;
     background-color: white;
 }
 
 /* Attempting to change TextField focused label color */
 .MuiInputLabel-root.Mui-focused {
     color: black;
+}
+
+.pickerDisp {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    border: 3px solid brown;
+    background-color: white;
+    max-width: 10em;
 }

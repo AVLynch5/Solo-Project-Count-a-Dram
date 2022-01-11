@@ -10,7 +10,6 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import moment from 'moment';
 
-
 function AddADram(){
     //dispatch
     const dispatch = useDispatch();
@@ -103,20 +102,9 @@ function AddADram(){
             <div className="caloriesBox">
                 <p className="leftText">Calories: {newDram.calories}</p>
             </div>
-            <label><input type="checkbox" checked={checked} onChange={handleCheckbox}/>This is a retroactive dram addition</label>
+            <label><input type="checkbox" checked={checked} onChange={handleCheckbox} />This is a retroactive dram addition</label>
             <br></br>
-            {checked ? <LocalizationProvider dateAdapter={AdapterDateFns}><DateTimePicker maxDate={new Date(currentTime)} renderInput={(props) => <TextField {...props} />} value={value} onChange={(newValue) => {setValue(newValue)}} inputProps={{
-          style: {
-            color: 'black',
-            backgroundColor: 'white',
-            border: 3,
-            borderColor: 'brown',
-            marginTop: 0.5,
-            marginBottom: 0.5,
-            marginLeft: 0.5,
-            marginRight: 0.5
-          }
-        }}/></LocalizationProvider> : ""}
+            {checked ? <div className="pickerDisp"><LocalizationProvider dateAdapter={AdapterDateFns}><DateTimePicker maxDate={new Date(currentTime)} renderInput={(props) => <TextField {...props} />} value={value} onChange={(newValue) => {setValue(newValue)}}/></LocalizationProvider></div> : ""}
             {user.id != null ? <Button variant='outlined' sx={{display: 'block', marginLeft: 'auto', marginRight: 'auto', color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5}} onClick={handlePost}>Add this dram</Button> : ''}
             </>
         </Paper>
@@ -125,3 +113,5 @@ function AddADram(){
 }
 
 export default AddADram;
+
+{/* <DatePicker value={value} onChange={(newValue) => {setValue(newValue)}} className="pickerDisp"/> */}
