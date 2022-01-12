@@ -44,5 +44,6 @@
     margin-bottom: 0.5em;
     border: 3px solid brown;
     background-color: white;
-    max-width: 10em;
+    height: max-content;
+    width: max-content;
 }
