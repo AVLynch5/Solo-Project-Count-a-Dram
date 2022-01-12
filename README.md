@@ -123,3 +123,7 @@ _Duration: Two-week Sprint_
   - [ ] see [source1](https://mui.com/customization/how-to-customize/) and [source2](https://smartdevpreneur.com/override-textfield-border-color-in-material-ui/)
 - [ ] MUI adornments for text fields - adding 'oz' unit to quantity field
 - [ ] Clean up 'Add A Dram' Textfield styling -> code currently messy b/c all styling done in-line with sx prop. Instead, use MUI's 'styled()' utility to create a reusable styled TextField. See About page and footer page!
+- [ ] Goal: increase responsiveness - text/header resizing for mobile/tablet/desktop viewing
+- [ ] Goal: condense component menu to hamburger menu for mobile/tablet viewing
+- [ ] Retroactive date addition - users can specify a (past) date & time when dram adding a dram. Partially styled.
+- [ ] Goal: Modify Add A Dram component styling. Issue - Calories field/ textfields look too much like buttons. Idea - change button styling.
