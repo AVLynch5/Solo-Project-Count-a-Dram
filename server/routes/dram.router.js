@@ -176,7 +176,7 @@ router.get('/range/:rangeString', rejectUnauthenticated, (req, res) => {
     const date2 = dateArray[1];
     const userID = req.user.id;
     const queryText = `
-        SELECT "dram"."dram_time"::timestamptz::date, SUM("dram"."dram_quantity") AS "SUM_DRAMS", SUM("dram"."dram_calories") AS "SUM_CALS"
+        SELECT "dram"."dram_time"::timestamptz::date AS "dram_date", SUM("dram"."dram_quantity") AS "SUM_DRAMS", SUM("dram"."dram_calories") AS "SUM_CALS"
         FROM "dram"
         WHERE ("dram"."dram_time"::timestamptz::date BETWEEN $1 AND $2) AND "dram"."user_id" = $3
         GROUP BY "dram"."dram_time"::timestamptz::date
