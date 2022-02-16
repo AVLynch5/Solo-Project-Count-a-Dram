@@ -8,16 +8,15 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 
-const user = useSelector((store) => store.user);
-
-const [openDrawer, setOpenDrawer] = useState(false);
-
 function HamburgerDrawer() {
+    const [openDrawer, setOpenDrawer] = useState(false);
+    const user = useSelector((store) => store.user);
     return (
         <>
-            <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
+            <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)} anchor='right'>
                 <List>
                     {!user.id && (
                         <>
