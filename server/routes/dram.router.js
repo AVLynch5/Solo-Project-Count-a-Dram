@@ -21,6 +21,15 @@ const router = express.Router();
  */
 router.post('/', rejectUnauthenticated, async (req, res) => {
     try {
+        const convertToEpoch = `SELECT extract(epoch from $1::timestamptz);`;
+        const epochQuery = await pool.query(convertToEpoch, [req.body.timeDate]);
+        const epochResult = epochQuery.rows[0].date_part;
+        console.log(epochResult);
+        const epochToTZ = `SELECT to_timestamp($1::bigint);`;
+        const tzQuery = await pool.query(epochToTZ, [epochResult]);
+        const tzResult = tzQuery.rows[0].to_timestamp;
+        console.log(tzResult);
+        console.log(tzResult.toLocaleDateString());
         const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2);`;
         const searchResult = await pool.query(searchQuery, [req.body.name, req.body.proof]);
         const whiskeyExists = (searchResult.rows.length == 1 ? true : false);
@@ -29,13 +38,13 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
                 const insertWhiskeyQuery = `INSERT INTO "whiskey" ("whiskey_name", "whiskey_proof") VALUES ($1, $2) RETURNING "id";`;
                 const postResult = await pool.query(insertWhiskeyQuery, [req.body.name, req.body.proof]);
                 const whiskeyID1 = postResult.rows[0].id;
-                const insertDramQuery1 = `INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories", "dram_time") VALUES ($1, $2, $3, $4, $5);`;
-                const postResult1 = await pool.query(insertDramQuery1, [req.user.id, whiskeyID1, req.body.quantity, req.body.calories, req.body.timeDate]);
+                const insertDramQuery1 = `INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories", "dram_time", "dram_epoch") VALUES ($1, $2, $3, $4, $5, $6);`;
+                const postResult1 = await pool.query(insertDramQuery1, [req.user.id, whiskeyID1, req.body.quantity, req.body.calories, req.body.timeDate, epochResult]);
                 break;
             case true:
                 const whiskeyID2 = searchResult.rows[0].id;  
-                const insertDramQuery2 = `INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories", "dram_time") VALUES ($1, $2, $3, $4, $5);`;
-                const postResult2 = await pool.query(insertDramQuery2, [req.user.id, whiskeyID2, req.body.quantity, req.body.calories, req.body.timeDate]);
+                const insertDramQuery2 = `INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories", "dram_time", "dram_epoch") VALUES ($1, $2, $3, $4, $5, $6);`;
+                const postResult2 = await pool.query(insertDramQuery2, [req.user.id, whiskeyID2, req.body.quantity, req.body.calories, req.body.timeDate, epochResult]);
                 break;
         }
         res.sendStatus(201);
