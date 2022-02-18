@@ -25,6 +25,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
         const epochQuery = await pool.query(convertToEpoch, [req.body.timeDate]);
         const epochResult = epochQuery.rows[0].date_part;
         console.log(epochResult);
+        console.log(parseInt(epochResult)/86400);
         const epochToTZ = `SELECT to_timestamp($1::bigint);`;
         const tzQuery = await pool.query(epochToTZ, [epochResult]);
         const tzResult = tzQuery.rows[0].to_timestamp;
@@ -69,17 +70,24 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
  * @apiSuccess {Object} dataObject object with data property. object.data is an array of dram objects.
  * 
  */
-router.get('/:id', rejectUnauthenticated, (req, res) => {
+router.get('/:id', rejectUnauthenticated, async (req, res) => {
     const dateID = req.params.id;
+    console.log(dateID);
+    const convertToEpoch = `SELECT extract(epoch from $1::timestamptz);`;
+    const epochQuery = await pool.query(convertToEpoch, [dateID]);
+    const epochResult = epochQuery.rows[0].date_part;
+    const mathFloor = Math.floor(epochResult/86400);
+    console.log(epochResult);
+    console.log(mathFloor); 
     const userID = req.user.id;
     const queryText = `
         SELECT "dram"."id", "whiskey"."whiskey_name", "whiskey"."whiskey_proof", "dram"."dram_quantity", "dram"."dram_calories", "dram"."dram_time"
         FROM "whiskey"
         INNER JOIN "dram"
         ON "whiskey"."id" = "dram"."whiskey_id"
-        WHERE "dram"."dram_time"::timestamptz::date = $1 AND "dram"."user_id" = $2
+        WHERE FLOOR("dram"."dram_epoch"/86400) = $1 AND "dram"."user_id" = $2
         ORDER BY "dram"."dram_time" ASC;`;
-    pool.query(queryText, [dateID, userID])
+    pool.query(queryText, [mathFloor, userID])
         .then((result) => {
             res.send(result.rows);
         })
