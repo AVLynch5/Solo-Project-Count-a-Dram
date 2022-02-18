@@ -172,7 +172,7 @@ function AnalyzeDrams(){
             
         }
         setBarStuff({dates: dateString.split('_'), calData: calDataString.split('_'), quantData: quantDataString.split('_')});
-        console.log(barData);
+        console.log(dateString);
     }
 
     function onChange(nextValue) {
