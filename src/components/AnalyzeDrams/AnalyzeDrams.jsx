@@ -160,11 +160,11 @@ function AnalyzeDrams(){
         for (let dataDay of dataArray) {
             console.log(dataDay.dram_date, dataDay.SUM_CALS, dataDay.SUM_DRAMS);
             if (dataArray.indexOf(dataDay) != dataArray.length-1) {
-                dateString = dateString + moment(dataDay.dram_date).format('YYYY-MM-DD') + '_';
+                dateString = dateString + new Date(dataDay.dram_date).toLocaleDateString() + '_';
                 calDataString = calDataString + dataDay.SUM_CALS + '_';
                 quantDataString = quantDataString + dataDay.SUM_DRAMS + '_';
             } else {
-                dateString = dateString + moment(dataDay.dram_date).format('YYYY-MM-DD');
+                dateString = dateString + new Date(dataDay.dram_date).toLocaleDateString();
                 calDataString = calDataString + dataDay.SUM_CALS;
                 quantDataString = quantDataString + dataDay.SUM_DRAMS;
             }
