@@ -186,19 +186,24 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
  * @apiSuccess {Object} dataObject object with data property. object.data is an array of dram data objects.
  * 
  */
-router.get('/range/:rangeString', rejectUnauthenticated, (req, res) => {
+router.get('/range/:rangeString', rejectUnauthenticated, async (req, res) => {
     console.log(req.params.rangeString);
     const dateArray = req.params.rangeString.split('_');
     const date1 = dateArray[0];
-    const date2 = dateArray[1];
+    const date2 = dateArray[1];    
+    const convertToEpoch = `SELECT extract(epoch from $1::timestamptz);`;
+    const epochQuery1 = await pool.query(convertToEpoch, [date1]);
+    const epochDate1 = epochQuery1.rows[0].date_part;
+    const epochQuery2 = await pool.query(convertToEpoch, [date2]);
+    const epochDate2 = epochQuery2.rows[0].date_part;
     const userID = req.user.id;
     const queryText = `
         SELECT "dram"."dram_time"::timestamptz::date AS "dram_date", SUM("dram"."dram_quantity") AS "SUM_DRAMS", SUM("dram"."dram_calories") AS "SUM_CALS"
         FROM "dram"
-        WHERE ("dram"."dram_time"::timestamptz::date BETWEEN $1 AND $2) AND "dram"."user_id" = $3
+        WHERE ("dram"."dram_epoch" BETWEEN $1 AND $2) AND "dram"."user_id" = $3
         GROUP BY "dram"."dram_time"::timestamptz::date
         ORDER BY "dram"."dram_time"::timestamptz::date ASC;`;
-    pool.query(queryText, [date1, date2, userID])
+    pool.query(queryText, [epochDate1, epochDate2, userID])
         .then((result) => {
             res.send(result.rows);
         })
