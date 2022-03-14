@@ -158,13 +158,13 @@ function AnalyzeDrams(){
         let calDataString='';
         let quantDataString='';
         for (let dataDay of dataArray) {
-            console.log(dataDay.dram_date, dataDay.SUM_CALS, dataDay.SUM_DRAMS);
+            console.log(dataDay.Date, dataDay.SUM_CALS, dataDay.SUM_DRAMS);
             if (dataArray.indexOf(dataDay) != dataArray.length-1) {
-                dateString = dateString + new Date(dataDay.dram_date).toLocaleDateString() + '_';
+                dateString = dateString + new Date(dataDay.Date).toLocaleDateString() + '_';
                 calDataString = calDataString + dataDay.SUM_CALS + '_';
                 quantDataString = quantDataString + dataDay.SUM_DRAMS + '_';
             } else {
-                dateString = dateString + new Date(dataDay.dram_date).toLocaleDateString();
+                dateString = dateString + new Date(dataDay.Date).toLocaleDateString();
                 calDataString = calDataString + dataDay.SUM_CALS;
                 quantDataString = quantDataString + dataDay.SUM_DRAMS;
             }
@@ -180,7 +180,7 @@ function AnalyzeDrams(){
         const dateToDisplay1=(moment(nextValue[0]).format('YYYY-MM-DD'));//first date selected by user when selectRange true
         const dateToDisplay2=(moment(nextValue[1]).format('YYYY-MM-DD'));//2nd date selected by user when selectRange true
         swal(`The selected range is ${dateToDisplay1} to ${dateToDisplay2}`);
-        const rangeString = moment(nextValue[0]).format()+"_"+moment(nextValue[1]).format();
+        const rangeString = nextValue[0].valueOf()+"_"+nextValue[1].valueOf();
         dispatch({type: 'GET_RANGE_DRAMS', payload: rangeString});
     }
     return(

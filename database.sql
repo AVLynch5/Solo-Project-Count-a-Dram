@@ -16,8 +16,8 @@ CREATE TABLE "dram" (
     "id" SERIAL PRIMARY KEY,
     "user_id" integer REFERENCES "user" NOT NULL,
 	"whiskey_id" integer REFERENCES "whiskey" NOT NULL,
-	"dram_date" DATE not null default CURRENT_DATE,
-	"dram_time" TIME NOT NULL DEFAULT CURRENT_TIME,
+	"dram_epoch" BIGINT not null,
+	"dram_time" TIMESTAMPTZ NOT NULL default CURRENT_TIMESTAMP,
 	"dram_quantity" FLOAT NOT NULL,
 	"dram_calories" integer NOT NULL
 );

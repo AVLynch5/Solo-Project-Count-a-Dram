@@ -21,16 +21,6 @@ const router = express.Router();
  */
 router.post('/', rejectUnauthenticated, async (req, res) => {
     try {
-        const convertToEpoch = `SELECT extract(epoch from $1::timestamptz);`;
-        const epochQuery = await pool.query(convertToEpoch, [req.body.timeDate]);
-        const epochResult = epochQuery.rows[0].date_part;
-        console.log(epochResult);
-        console.log(parseInt(epochResult)/86400);
-        const epochToTZ = `SELECT to_timestamp($1::bigint);`;
-        const tzQuery = await pool.query(epochToTZ, [epochResult]);
-        const tzResult = tzQuery.rows[0].to_timestamp;
-        console.log(tzResult);
-        console.log(tzResult.toLocaleDateString());
         const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2);`;
         const searchResult = await pool.query(searchQuery, [req.body.name, req.body.proof]);
         const whiskeyExists = (searchResult.rows.length == 1 ? true : false);
@@ -39,13 +29,13 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
                 const insertWhiskeyQuery = `INSERT INTO "whiskey" ("whiskey_name", "whiskey_proof") VALUES ($1, $2) RETURNING "id";`;
                 const postResult = await pool.query(insertWhiskeyQuery, [req.body.name, req.body.proof]);
                 const whiskeyID1 = postResult.rows[0].id;
-                const insertDramQuery1 = `INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories", "dram_time", "dram_epoch") VALUES ($1, $2, $3, $4, $5, $6);`;
-                const postResult1 = await pool.query(insertDramQuery1, [req.user.id, whiskeyID1, req.body.quantity, req.body.calories, req.body.timeDate, epochResult]);
+                const insertDramQuery1 = `INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories", "dram_epoch") VALUES ($1, $2, $3, $4, $5);`;
+                const postResult1 = await pool.query(insertDramQuery1, [req.user.id, whiskeyID1, req.body.quantity, req.body.calories, req.body.timeDate]);
                 break;
             case true:
                 const whiskeyID2 = searchResult.rows[0].id;  
-                const insertDramQuery2 = `INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories", "dram_time", "dram_epoch") VALUES ($1, $2, $3, $4, $5, $6);`;
-                const postResult2 = await pool.query(insertDramQuery2, [req.user.id, whiskeyID2, req.body.quantity, req.body.calories, req.body.timeDate, epochResult]);
+                const insertDramQuery2 = `INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories", "dram_epoch") VALUES ($1, $2, $3, $4, $5);`;
+                const postResult2 = await pool.query(insertDramQuery2, [req.user.id, whiskeyID2, req.body.quantity, req.body.calories, req.body.timeDate]);
                 break;
         }
         res.sendStatus(201);
@@ -72,22 +62,20 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
  */
 router.get('/:id', rejectUnauthenticated, async (req, res) => {
     const dateID = req.params.id;
-    console.log(dateID);
-    const convertToEpoch = `SELECT extract(epoch from $1::timestamptz);`;
-    const epochQuery = await pool.query(convertToEpoch, [dateID]);
-    const epochResult = epochQuery.rows[0].date_part;
-    const mathFloor = Math.floor(epochResult/86400);
-    console.log(epochResult);
-    console.log(mathFloor); 
+    const dateFloor = new Date(+dateID);
+    dateFloor.setUTCHours(0, 0, 0, 0);
+    const dateCeiling = new Date(+dateID);
+    dateCeiling.setUTCHours(23, 59, 59, 999);
     const userID = req.user.id;
+    console.log(dateID, dateFloor, dateCeiling);
     const queryText = `
-        SELECT "dram"."id", "whiskey"."whiskey_name", "whiskey"."whiskey_proof", "dram"."dram_quantity", "dram"."dram_calories", "dram"."dram_time"
+        SELECT "dram"."id", "whiskey"."whiskey_name", "whiskey"."whiskey_proof", "dram"."dram_quantity", "dram"."dram_calories", "dram"."dram_epoch"
         FROM "whiskey"
         INNER JOIN "dram"
         ON "whiskey"."id" = "dram"."whiskey_id"
-        WHERE FLOOR("dram"."dram_epoch"/86400) = $1 AND "dram"."user_id" = $2
-        ORDER BY "dram"."dram_time" ASC;`;
-    pool.query(queryText, [mathFloor, userID])
+        WHERE ("dram"."dram_epoch" BETWEEN $1 AND $2) AND "dram"."user_id" = $3
+        ORDER BY "dram"."dram_epoch" ASC;`;
+    pool.query(queryText, [dateFloor.valueOf(), dateCeiling.valueOf(), userID])
         .then((result) => {
             res.send(result.rows);
         })
@@ -189,21 +177,19 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
 router.get('/range/:rangeString', rejectUnauthenticated, async (req, res) => {
     console.log(req.params.rangeString);
     const dateArray = req.params.rangeString.split('_');
-    const date1 = dateArray[0];
-    const date2 = dateArray[1];    
-    const convertToEpoch = `SELECT extract(epoch from $1::timestamptz);`;
-    const epochQuery1 = await pool.query(convertToEpoch, [date1]);
-    const epochDate1 = epochQuery1.rows[0].date_part;
-    const epochQuery2 = await pool.query(convertToEpoch, [date2]);
-    const epochDate2 = epochQuery2.rows[0].date_part;
+    const rangeFloor = new Date(+dateArray[0]);
+    rangeFloor.setUTCHours(0, 0, 0, 0);
+    const rangeCeiling = new Date(+dateArray[1]);    
+    rangeCeiling.setUTCHours(0, 0, 0, 0);
+    console.log(rangeFloor, rangeCeiling);
     const userID = req.user.id;
     const queryText = `
-        SELECT "dram"."dram_time"::timestamptz::date AS "dram_date", SUM("dram"."dram_quantity") AS "SUM_DRAMS", SUM("dram"."dram_calories") AS "SUM_CALS"
+        SELECT TO_TIMESTAMP("dram"."dram_epoch"/1000)::date AS "Date", SUM("dram"."dram_quantity") AS "SUM_DRAMS", SUM("dram"."dram_calories") AS "SUM_CALS"
         FROM "dram"
         WHERE ("dram"."dram_epoch" BETWEEN $1 AND $2) AND "dram"."user_id" = $3
-        GROUP BY "dram"."dram_time"::timestamptz::date
-        ORDER BY "dram"."dram_time"::timestamptz::date ASC;`;
-    pool.query(queryText, [epochDate1, epochDate2, userID])
+        GROUP BY "Date"
+        ORDER BY "Date" ASC;`;
+    pool.query(queryText, [rangeFloor.valueOf(), rangeCeiling.valueOf(), userID])
         .then((result) => {
             res.send(result.rows);
         })

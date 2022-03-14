@@ -45,7 +45,7 @@ function AddADram(){
             swal('Please enter dram information and calculate');
             return;
         } else {
-            dispatch({type: 'ADD_NEW_DRAM', payload: {...newDram, timeDate: moment.utc(value).local().format()}});
+            dispatch({type: 'ADD_NEW_DRAM', payload: {...newDram, timeDate: value.valueOf()}});
             clearInputs();
             //after dispatch, route user to view drams component
         }  
