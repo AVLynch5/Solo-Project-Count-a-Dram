@@ -62,10 +62,12 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
  */
 router.get('/:id', rejectUnauthenticated, async (req, res) => {
     const dateID = req.params.id;
-    const dateFloor = new Date(+dateID);
+    /* const dateFloor = new Date(+dateID);
     dateFloor.setUTCHours(0, 0, 0, 0);
     const dateCeiling = new Date(+dateID);
-    dateCeiling.setUTCHours(23, 59, 59, 999);
+    dateCeiling.setUTCHours(23, 59, 59, 999); */
+    const dateFloor = parseInt(dateID);
+    const dateCeiling = dateFloor + 86400000;
     const userID = req.user.id;
     console.log(dateID, dateFloor, dateCeiling);
     const queryText = `
@@ -177,11 +179,13 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
 router.get('/range/:rangeString', rejectUnauthenticated, async (req, res) => {
     console.log(req.params.rangeString);
     const dateArray = req.params.rangeString.split('_');
-    const rangeFloor = new Date(+dateArray[0]);
+    /* const rangeFloor = new Date(+dateArray[0]);
     rangeFloor.setUTCHours(0, 0, 0, 0);
     const rangeCeiling = new Date(+dateArray[1]);    
-    rangeCeiling.setUTCHours(0, 0, 0, 0);
-    console.log(rangeFloor, rangeCeiling);
+    rangeCeiling.setUTCHours(0, 0, 0, 0); */
+    const rangeFloor = dateArray[0];
+    const rangeCeiling = dateArray[1];
+    console.log(new Date(+rangeFloor), new Date(+rangeCeiling));
     const userID = req.user.id;
     const queryText = `
         SELECT TO_TIMESTAMP("dram"."dram_epoch"/1000)::date AS "Date", SUM("dram"."dram_quantity") AS "SUM_DRAMS", SUM("dram"."dram_calories") AS "SUM_CALS"
