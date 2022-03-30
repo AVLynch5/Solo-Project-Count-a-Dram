@@ -188,11 +188,11 @@ router.get('/range/:rangeString', rejectUnauthenticated, async (req, res) => {
     console.log(new Date(+rangeFloor), new Date(+rangeCeiling));
     const userID = req.user.id;
     const queryText = `
-        SELECT TO_TIMESTAMP("dram"."dram_epoch"/1000)::date AS "Date", SUM("dram"."dram_quantity") AS "SUM_DRAMS", SUM("dram"."dram_calories") AS "SUM_CALS"
+        SELECT date_trunc('day', TO_TIMESTAMP("dram"."dram_epoch"/1000)) AS "Date", SUM("dram"."dram_quantity") AS "SUM_DRAMS", SUM("dram"."dram_calories") AS "SUM_CALS"
         FROM "dram"
         WHERE ("dram"."dram_epoch" BETWEEN $1 AND $2) AND "dram"."user_id" = $3
-        GROUP BY "Date"
-        ORDER BY "Date" ASC;`;
+        GROUP BY "Date", "dram"."dram_epoch"
+        ORDER BY "dram"."dram_epoch" ASC;`;
     pool.query(queryText, [rangeFloor.valueOf(), rangeCeiling.valueOf(), userID])
         .then((result) => {
             res.send(result.rows);
