@@ -12,6 +12,7 @@ import {Paper} from '@mui/material';
 import {Button} from '@mui/material';
 import swal from 'sweetalert';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import { object } from "prop-types";
 
 
 function AnalyzeDrams(){
@@ -21,7 +22,7 @@ function AnalyzeDrams(){
 
     const dispatch = useDispatch();
 
-    const dataArray = useData();
+    const dataObject = useData();
 
     const average = (array) => {
         let total = 0;
@@ -154,25 +155,13 @@ function AnalyzeDrams(){
     };
 
     function populateChart() {
-        let dateString='';
-        let calDataString='';
-        let quantDataString='';
-        for (let dataDay of dataArray) {
-            console.log(dataDay.Date, dataDay.SUM_CALS, dataDay.SUM_DRAMS);
-            if (dataArray.indexOf(dataDay) != dataArray.length-1) {
-                dateString = dateString + new Date(dataDay.Date).toLocaleDateString() + '_';
-                calDataString = calDataString + dataDay.SUM_CALS + '_';
-                quantDataString = quantDataString + dataDay.SUM_DRAMS + '_';
-            } else {
-                dateString = dateString + new Date(dataDay.Date).toLocaleDateString();
-                calDataString = calDataString + dataDay.SUM_CALS;
-                quantDataString = quantDataString + dataDay.SUM_DRAMS;
-            }
-
-            
+        const quantArray = [];
+        const calArray = [];
+        for (let day of Object.values(dataObject)) {
+            quantArray.push(day.sumQuant);
+            calArray.push(day.sumCals);
         }
-        setBarStuff({dates: dateString.split('_'), calData: calDataString.split('_'), quantData: quantDataString.split('_')});
-        console.log(dateString);
+        setBarStuff({dates: Object.keys(dataObject), calData: calArray, quantData: quantArray});
     }
 
     function onChange(nextValue) {
