@@ -189,14 +189,16 @@ router.get('/range/:rangeString', rejectUnauthenticated, async (req, res) => {
     console.log(new Date(+rangeFloor), new Date(+rangeCeiling));
     const userID = req.user.id;
     const queryText = `
-        SELECT date_trunc('day', TO_TIMESTAMP("dram"."dram_epoch"/1000)) AS "Date", SUM("dram"."dram_quantity") AS "SUM_DRAMS", SUM("dram"."dram_calories") AS "SUM_CALS"
+        SELECT "dram"."dram_epoch", "dram"."dram_quantity", "dram"."dram_calories"
         FROM "dram"
         WHERE ("dram"."dram_epoch" BETWEEN $1 AND $2) AND "dram"."user_id" = $3
-        GROUP BY "Date", "dram"."dram_epoch"
         ORDER BY "dram"."dram_epoch" ASC;`;
     pool.query(queryText, [rangeFloor.valueOf(), rangeCeiling.valueOf(), userID])
         .then((result) => {
-            res.send(result.rows);
+            console.log(result.rows);
+            const resultObj = rearrangeArray(result.rows);
+            console.log(resultObj);
+            res.send(resultObj);
         })
         .catch((error) => {
             console.log('Error GETting data from date range', error);
