@@ -195,9 +195,7 @@ router.get('/range/:rangeString', rejectUnauthenticated, async (req, res) => {
         ORDER BY "dram"."dram_epoch" ASC;`;
     pool.query(queryText, [rangeFloor.valueOf(), rangeCeiling.valueOf(), userID])
         .then((result) => {
-            console.log(result.rows);
-            const resultObj = rearrangeArray(result.rows);
-            console.log(resultObj);
+            const resultObj = rearrangeArray(result.rows);//calls function that groups results array by date & sums calorie and quantity information. Output is an object.
             res.send(resultObj);
         })
         .catch((error) => {
