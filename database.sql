@@ -17,7 +17,6 @@ CREATE TABLE "dram" (
     "user_id" integer REFERENCES "user" NOT NULL,
 	"whiskey_id" integer REFERENCES "whiskey" NOT NULL,
 	"dram_epoch" BIGINT not null,
-	"dram_time" TIMESTAMPTZ NOT NULL default CURRENT_TIMESTAMP,
 	"dram_quantity" FLOAT NOT NULL,
 	"dram_calories" integer NOT NULL
 );
