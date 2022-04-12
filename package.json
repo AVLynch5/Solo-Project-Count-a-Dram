@@ -44,7 +44,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "apidoc": "apidoc -i server/routes/ -o apidoc/"
+    "apidoc": "apidoc -i server/routes/ -o apidoc/",
+    "prestart": "npm run build --prefix client"
   },
   "apidoc": {
     "name": "Count_A_Dram_API",
