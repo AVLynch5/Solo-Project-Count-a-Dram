@@ -1,0 +1,33 @@
+.svg_Icon {
+    transform: scale(1.4);
+    color: white;
+}
+
+.svg_Icon:hover {
+    color: #FA7F43
+}
+
+.svg_Right {
+    transform: scale(1.4);
+    position: flex;
+    margin-left: auto;
+}
+
+.svg_Right:hover {
+    color: red;
+}
+
+.drawerLink {
+    text-decoration: none;
+    color: black;
+}
+
+.drawerLinkBox {
+    border: 4px solid #FA7F43;
+    text-align: center;
+    padding: 0.75em;
+}
+
+.drawerLinkBox:hover {
+    background-color: #f8ad87;
+}

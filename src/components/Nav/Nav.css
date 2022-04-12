@@ -3,9 +3,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  margin: 0 0 0px;
-  background-image: url(./barrel_image.jpg);
+  margin: 0 0 30px;
+  /* background-image: url(./barrel_image.jpg); */
+  background-color: #676767;
   overflow: hidden;
 }
 
@@ -25,7 +25,8 @@
 .navLink {
   display: inline-block;
   color: #f2f2f2;
-  background-image: url(./barrel_image.jpg);
+  /* background-image: url(./barrel_image.jpg); */
+  background-color: #676767;
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;
@@ -40,6 +41,9 @@
 
 .navLink:hover {
   color: #FA7F43;
+  text-decoration: underline;
+  text-decoration-color: #FA7F43;
+  text-decoration-thickness: 35%;
 }
 
 .nav-title:hover {
