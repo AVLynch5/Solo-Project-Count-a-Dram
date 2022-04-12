@@ -29,10 +29,10 @@ if (process.env.DATABASE_URL) {
 } else {
   config = {
     host: 'localhost', // Server hosting the postgres database
-    user: 'postgres',
-    password: 'postgres',
+    user: 'hexClad',
+    password: 'hexClad',
     port: 5432, // env var: PGPORT
-    database: 'postgres', // CHANGE THIS LINE! env var: PGDATABASE, this is likely the one thing you need to change to get up and running
+    database: 'Count_A_Dram', // CHANGE THIS LINE! env var: PGDATABASE, this is likely the one thing you need to change to get up and running
     max: 10, // max number of clients in the pool
     idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
   };

@@ -4,8 +4,9 @@ services:
     image: postgres:13-alpine
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=Count_A_Dram
+      - POSTGRES_USER=hexClad
+      - POSTGRES_PASSWORD=hexClad
     ports:
       - '5432:5432'
     volumes: 
