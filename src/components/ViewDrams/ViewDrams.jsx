@@ -58,6 +58,7 @@ function ViewDrams() {
                             <TableRow>
                                 <TableCell align={"center"}>Whiskey Name</TableCell>
                                 <TableCell align={"center"}>Whiskey Proof</TableCell>
+                                <TableCell align={"center"}>Whiskey Type</TableCell>
                                 <TableCell align={"center"}>Dram Quantity (oz)</TableCell>
                                 <TableCell align={"center"}>Dram Calories</TableCell>
                                 <TableCell align={"center"}>Delete</TableCell>
