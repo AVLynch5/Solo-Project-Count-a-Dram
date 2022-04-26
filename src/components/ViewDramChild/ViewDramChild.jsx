@@ -82,11 +82,18 @@ function ViewDramChild({dramList, entry}) {
         dispatch({type: `EDIT_WHISKEY_${propertyKey}`, payload: {index: dramList.indexOf(entry), [propertyKey]: event.target.value}})
     }
 
+    const whiskeyLocType = ['Scotch', 'Bourbon', 'Rye'];
+
     return(
         <>
             <TableRow>
                 <TableCell align={"center"}>{editMode ? <input type="text" value={dramList[dramList.indexOf(entry)].whiskey_name} onChange={handleChange('NAME')}/> : entry.whiskey_name}</TableCell>
                 <TableCell align={"center"}>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].whiskey_proof} onChange={handleChange('PROOF')}/> : entry.whiskey_proof}</TableCell>
+                <TableCell align={"center"}>{editMode ? <select required value={dramList[dramList.indexOf(entry)].whiskey_type} onChange={handleChange('TYPE')}>
+                    {whiskeyLocType.map((optionType) => (
+                        <option value={optionType}>{optionType}</option>
+                    ))}
+                    </select> : entry.whiskey_type}</TableCell>
                 <TableCell align={"center"}>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].dram_quantity} onChange={handleChange('QUANTITY')}/> : entry.dram_quantity}</TableCell>
                 <TableCell align={"center"}>{entry.dram_calories}</TableCell>
                 <TableCell align={"center"}><Button onClick={() => handleDelete(entry.dram_date, entry.id)}>{<DeleteIcon />}</Button></TableCell>
