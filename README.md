@@ -127,3 +127,4 @@ _Duration: Two-week Sprint_
 - [ ] Goal: condense component menu to hamburger menu for mobile/tablet viewing
 - [ ] Retroactive date addition - users can specify a (past) date & time when dram adding a dram. Partially styled.
 - [ ] Goal: Modify Add A Dram component styling. Issue - Calories field/ textfields look too much like buttons. Idea - change button styling. Highlight Add this Dram button.
+- [ ] Add A Dram: Fix "type" dropdown styling (background color, input label position & text size) & standardize spacing/margins
