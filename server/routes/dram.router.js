@@ -22,13 +22,13 @@ const {rearrangeArray} = require(`../modules/resultsArrToObject`);
  */
 router.post('/', rejectUnauthenticated, async (req, res) => {
     try {
-        const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2);`;
-        const searchResult = await pool.query(searchQuery, [req.body.name, req.body.proof]);
+        const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2 AND "whiskey_type" = $3);`;
+        const searchResult = await pool.query(searchQuery, [req.body.name, req.body.proof, req.body.locType]);
         const whiskeyExists = (searchResult.rows.length == 1 ? true : false);
         switch (whiskeyExists) {
             case false:
-                const insertWhiskeyQuery = `INSERT INTO "whiskey" ("whiskey_name", "whiskey_proof") VALUES ($1, $2) RETURNING "id";`;
-                const postResult = await pool.query(insertWhiskeyQuery, [req.body.name, req.body.proof]);
+                const insertWhiskeyQuery = `INSERT INTO "whiskey" ("whiskey_name", "whiskey_proof", "whiskey_type") VALUES ($1, $2, $3) RETURNING "id";`;
+                const postResult = await pool.query(insertWhiskeyQuery, [req.body.name, req.body.proof, req.body.locType]);
                 const whiskeyID1 = postResult.rows[0].id;
                 const insertDramQuery1 = `INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories", "dram_epoch") VALUES ($1, $2, $3, $4, $5);`;
                 const postResult1 = await pool.query(insertDramQuery1, [req.user.id, whiskeyID1, req.body.quantity, req.body.calories, req.body.timeDate]);
