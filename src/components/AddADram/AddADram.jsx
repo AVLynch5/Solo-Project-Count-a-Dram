@@ -4,7 +4,7 @@ import useUser from "../../hooks/useUser";
 import {Paper} from '@mui/material';
 import './AddADram.css';
 import {Button} from '@mui/material';
-import {TextField, Select} from '@mui/material';
+import {TextField, MenuItem} from '@mui/material';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -17,7 +17,7 @@ function AddADram(){
     const user = useUser();
 
     //state vars
-    const [newDram, setNewDram] = useState({name: '', proof: '', quantity: '', calories: ''});
+    const [newDram, setNewDram] = useState({name: '', proof: '', quantity: '', calories: '', locType: ''});
     const [checked, setChecked] = useState(false);
     const [value, setValue] = useState(new Date());
 
@@ -67,7 +67,7 @@ function AddADram(){
 
     const clearInputs = () => {
         //consider validation sweetAlert - ensure user wants to clear
-        setNewDram({name: '', proof: '', quantity: '', calories: ''});
+        setNewDram({name: '', proof: '', quantity: '', calories: '', locType: ''});
         setValue(new Date());
     }
 
@@ -83,6 +83,8 @@ function AddADram(){
 
     const currentTime = moment(Date()).local().add(1, 'days').format('YYYY-MM-DD');
 
+    const whiskeyLocType = ['Scotch', 'Bourbon', 'Rye'];
+
     return(
         <div className="wholePage">
         <Paper className="pageContainer" elevation={10} sx={{backgroundColor: '#F09F41'}}>
@@ -95,7 +97,11 @@ function AddADram(){
                     <TextField size="small" variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} required type="number" inputProps={{step: "any", style: { fontSize: 22 }}} InputLabelProps={{ style: { fontSize: 22 } }} label="Whiskey Proof" value={newDram.proof} onChange={handleChange('proof')}/>
                     <TextField size="small" variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} required type="number" inputProps={{step: "any", style: { fontSize: 22 }}} label="Quantity (oz)" InputLabelProps={{ style: { fontSize: 22 } }} value={newDram.quantity} onChange={handleChange('quantity')}/>
                     <br />
-                    <Select label="Type"/>
+                    <TextField select disabled={user.id == null ? true : false} label="Type" size="small" variant='filled' sx={{minWidth: 140, color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.0, marginLeft: 0.5, marginRight: 0.5}} InputLabelProps={{ style: { fontSize: 22 } }} value={newDram.locType} onChange={handleChange('locType')}>
+                        {whiskeyLocType.map((option) => (
+                            <MenuItem value={option}>{option}</MenuItem>
+                        ))}
+                    </TextField>    
                     <br/>
                     <Button variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginTop: 0.5, marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} type="submit">Calculate Calories</Button>
                     <Button variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginTop: 0.5, marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} onClick={clearInputs}>Clear form</Button>
