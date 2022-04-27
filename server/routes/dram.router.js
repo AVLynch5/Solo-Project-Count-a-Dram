@@ -55,7 +55,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
  * @apiDescription This route returns an array/list of dram objects with a particular dram_date. 
  * The date should be passed through the request params and the user should be passed through the request user.
  * 
- * @apiParam {String} dateID Mandatory date of dram objects to fetch. YYYY-MM-DD format.
+ * @apiParam {String} dateID Mandatory date of dram objects to fetch. Millisecond epoch format.
  * @apiParam {Number} userID Mandatory id of user
  * 
  * @apiSuccess {Object} dataObject object with data property. object.data is an array of dram objects.
@@ -63,16 +63,12 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
  */
 router.get('/:id', rejectUnauthenticated, async (req, res) => {
     const dateID = req.params.id;
-    /* const dateFloor = new Date(+dateID);
-    dateFloor.setUTCHours(0, 0, 0, 0);
-    const dateCeiling = new Date(+dateID);
-    dateCeiling.setUTCHours(23, 59, 59, 999); */
     const dateFloor = parseInt(dateID);
     const dateCeiling = dateFloor + 86400000;
     const userID = req.user.id;
     console.log(dateID, dateFloor, dateCeiling);
     const queryText = `
-        SELECT "dram"."id", "whiskey"."whiskey_name", "whiskey"."whiskey_proof", "dram"."dram_quantity", "dram"."dram_calories", "dram"."dram_epoch"
+        SELECT "dram"."id", "whiskey"."whiskey_name", "whiskey"."whiskey_proof", "whiskey_type", "dram"."dram_quantity", "dram"."dram_calories", "dram"."dram_epoch"
         FROM "whiskey"
         INNER JOIN "dram"
         ON "whiskey"."id" = "dram"."whiskey_id"
