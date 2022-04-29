@@ -78,6 +78,13 @@ function HamburgerDrawer() {
                             </ListItem>
                             <ListItem onClick={() => setOpenDrawer(false)}>
                                 <ListItemText className='drawerLinkBox'>
+                                    <Link className='drawerLink' to="/whiskeylist">
+                                        Whiskey List
+                                    </Link>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItem onClick={() => setOpenDrawer(false)}>
+                                <ListItemText className='drawerLinkBox'>
                                     <Link className="drawerLink" to="/login" onClick={() => dispatch({ type: 'LOGOUT' })}>
                                         Log Out
                                     </Link>
