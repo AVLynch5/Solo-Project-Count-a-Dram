@@ -22,13 +22,13 @@ const {rearrangeArray} = require(`../modules/resultsArrToObject`);
  */
 router.post('/', rejectUnauthenticated, async (req, res) => {
     try {
-        const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2 AND "whiskey_type" = $3);`;
-        const searchResult = await pool.query(searchQuery, [req.body.name, req.body.proof, req.body.locType]);
+        const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2 AND "whiskey_type" = $3 AND "user_id" = $4);`;
+        const searchResult = await pool.query(searchQuery, [req.body.name, req.body.proof, req.body.locType, req.user.id]);
         const whiskeyExists = (searchResult.rows.length == 1 ? true : false);
         switch (whiskeyExists) {
             case false:
-                const insertWhiskeyQuery = `INSERT INTO "whiskey" ("whiskey_name", "whiskey_proof", "whiskey_type") VALUES ($1, $2, $3) RETURNING "id";`;
-                const postResult = await pool.query(insertWhiskeyQuery, [req.body.name, req.body.proof, req.body.locType]);
+                const insertWhiskeyQuery = `INSERT INTO "whiskey" ("whiskey_name", "whiskey_proof", "whiskey_type", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id";`;
+                const postResult = await pool.query(insertWhiskeyQuery, [req.body.name, req.body.proof, req.body.locType, req.user.id]);
                 const whiskeyID1 = postResult.rows[0].id;
                 const insertDramQuery1 = `INSERT INTO "dram" ("user_id", "whiskey_id", "dram_quantity", "dram_calories", "dram_epoch") VALUES ($1, $2, $3, $4, $5);`;
                 const postResult1 = await pool.query(insertDramQuery1, [req.user.id, whiskeyID1, req.body.quantity, req.body.calories, req.body.timeDate]);
@@ -134,13 +134,13 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 router.put('/:id', rejectUnauthenticated, async (req, res) => {
     const dramID = req.params.id;
     try {
-        const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2 AND "whiskey_type" = $3);`;
-        const searchResult = await pool.query(searchQuery, [req.body.whiskey_name, req.body.whiskey_proof, req.body.whiskey_type]);
+        const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2 AND "whiskey_type" = $3 AND "user_id" = $4);`;
+        const searchResult = await pool.query(searchQuery, [req.body.whiskey_name, req.body.whiskey_proof, req.body.whiskey_type, req.user.id]);
         const whiskeyExists = (searchResult.rows.length == 1 ? true : false);
         switch (whiskeyExists) {
             case false:
-                const insertWhiskeyQuery = `INSERT INTO "whiskey" ("whiskey_name", "whiskey_proof", "whiskey_type") VALUES ($1, $2, $3) RETURNING "id";`;
-                const postResult = await pool.query(insertWhiskeyQuery, [req.body.whiskey_name, req.body.whiskey_proof, req.body.whiskey_type]);
+                const insertWhiskeyQuery = `INSERT INTO "whiskey" ("whiskey_name", "whiskey_proof", "whiskey_type", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id";`;
+                const postResult = await pool.query(insertWhiskeyQuery, [req.body.whiskey_name, req.body.whiskey_proof, req.body.whiskey_type, req.user.id]);
                 const whiskeyID1 = postResult.rows[0].id;
                 const putDramQuery1 = `UPDATE "dram" SET "whiskey_id" = $1, "dram_quantity" = $2, "dram_calories" = $3 WHERE "id" = $4;`;
                 const putResult1 = await pool.query(putDramQuery1, [whiskeyID1, req.body.dram_quantity, req.body.dram_calories, dramID]);
