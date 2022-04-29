@@ -134,13 +134,13 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 router.put('/:id', rejectUnauthenticated, async (req, res) => {
     const dramID = req.params.id;
     try {
-        const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2);`;
-        const searchResult = await pool.query(searchQuery, [req.body.whiskey_name, req.body.whiskey_proof]);
+        const searchQuery = `SELECT * FROM "whiskey" WHERE ("whiskey_name" = $1 AND "whiskey_proof" = $2 AND "whiskey_type" = $3);`;
+        const searchResult = await pool.query(searchQuery, [req.body.whiskey_name, req.body.whiskey_proof, req.body.whiskey_type]);
         const whiskeyExists = (searchResult.rows.length == 1 ? true : false);
         switch (whiskeyExists) {
             case false:
-                const insertWhiskeyQuery = `INSERT INTO "whiskey" ("whiskey_name", "whiskey_proof") VALUES ($1, $2) RETURNING "id";`;
-                const postResult = await pool.query(insertWhiskeyQuery, [req.body.whiskey_name, req.body.whiskey_proof]);
+                const insertWhiskeyQuery = `INSERT INTO "whiskey" ("whiskey_name", "whiskey_proof", "whiskey_type") VALUES ($1, $2, $3) RETURNING "id";`;
+                const postResult = await pool.query(insertWhiskeyQuery, [req.body.whiskey_name, req.body.whiskey_proof, req.body.whiskey_type]);
                 const whiskeyID1 = postResult.rows[0].id;
                 const putDramQuery1 = `UPDATE "dram" SET "whiskey_id" = $1, "dram_quantity" = $2, "dram_calories" = $3 WHERE "id" = $4;`;
                 const putResult1 = await pool.query(putDramQuery1, [whiskeyID1, req.body.dram_quantity, req.body.dram_calories, dramID]);
