@@ -10,7 +10,7 @@ const passport = require('./strategies/user.strategy');
 // Route includes
 const userRouter = require('./routes/user.router');
 const dramRouter = require('./routes/dram.router');
-const whiskeyRouter = require('./routes/whiskies.router');
+const whiskiesRouter = require('./routes/whiskies.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -26,7 +26,7 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/dram', dramRouter);
-app.use('/api/whiskey', whiskeyRouter);
+app.use('/api/whiskies', whiskiesRouter);
 
 // Serve static files
 app.use(express.static('build'));
