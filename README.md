@@ -129,4 +129,4 @@ _Duration: Two-week Sprint_
 - [ ] Goal: Modify Add A Dram component styling. Issue - Calories field/ textfields look too much like buttons. Idea - change button styling. Highlight Add this Dram button.
 - [ ] Add A Dram: Fix "type" dropdown styling (background color, input label position & text size) & standardize spacing/margins
 - [ ] Database.sql - is it necessary to have a "user_id" column for whiskey table and dram table? It's direct for my components, but could a join (keep   column in whiskey table) accomplish the same thing? Problem - keeping the column in dram table would require aggressively filtering results for whiskey list component...
-
+- [ ] create whiskey types DB with id and name columns. Change dropdown menus to use id values, modify queries to use joins, add keys to dropdowns.
