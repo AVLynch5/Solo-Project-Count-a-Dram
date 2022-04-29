@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', rejectUnauthenticated, async (req, res) => {
     const userID = req.user.id;
     const queryText = `
-        SELECT "whiskey"."whiskey_name", "whiskey"."whiskey_type", "whiskey"."whiskey_proof"
+        SELECT "whiskey"."whiskey_name", "whiskey"."whiskey_type"
         FROM "whiskey"
         WHERE "whiskey"."user_id" = $1
         ORDER BY "whiskey"."whiskey_name" ASC;`;

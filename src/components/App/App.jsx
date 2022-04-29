@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import AddADram from '../AddADram/AddADram';
 import ViewDrams from '../ViewDrams/ViewDrams';
 import AnalyzeDrams from '../AnalyzeDrams/AnalyzeDrams';
+import WhiskeyList from '../WhiskeyList/WhiskeyList';
 
 import './App.css';
 
@@ -75,6 +76,12 @@ function App() {
             path="/analyzedrams"
           >
             <AnalyzeDrams />
+          </Route>
+
+          <Route
+            path="/whiskeylist"
+          >
+            <WhiskeyList />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.

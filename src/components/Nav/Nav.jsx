@@ -61,6 +61,10 @@ function Nav() {
                 Analyze Drams
               </Link>
 
+              <Link className="navLink" to="/whiskeylist">
+                Whiskey List
+              </Link>
+
               {/*<Link className="navLink" to="/info">
                 Info Page
               </Link>*/}
