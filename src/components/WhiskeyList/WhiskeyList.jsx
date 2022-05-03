@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import WhiskeyListChild from "../WhiskeyListChild/WhiskeyListChild";
 
 function ViewWhiskeyList (){
     const [whiskeyListObj, setWhiskeyListObj] = useState({});
@@ -25,7 +26,8 @@ function ViewWhiskeyList (){
 
     return(
         <>
-        {JSON.stringify(whiskeyListObj)}
+            {Object.keys(whiskeyListObj).length == 0 ? "Loading" : <WhiskeyListChild childObj={whiskeyListObj}/>}
+            {JSON.stringify(whiskeyListObj)}
         </>
     );
 };
