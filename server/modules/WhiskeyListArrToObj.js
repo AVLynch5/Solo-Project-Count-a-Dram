@@ -7,7 +7,7 @@ const processWhiskeyList = (array) => {
         nameWhiskeys[whiskey_type].push({"name": whiskey_name, "proof": whiskey_proof});
         return nameWhiskeys;
     }, {});
-    setWhiskeyListObj(whiskeyCategories);
+    return whiskeyCategories;
 };
   
   module.exports = {
