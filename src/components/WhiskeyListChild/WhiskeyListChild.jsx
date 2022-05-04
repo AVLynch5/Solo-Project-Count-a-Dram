@@ -7,8 +7,8 @@ const WhiskeyListChild = ({childObj}) => {
                         <figure>
                             <figcaption>{key}</figcaption>
                             <ul>
-                                {value.map((whiskyName) => {
-                                    return <li>{whiskyName.name}, {whiskyName.proof} proof</li>
+                                {value.map((whiskyName, i) => {
+                                    return <li key={i}>{whiskyName.name}, {whiskyName.proof} proof</li>
                                 })}
                             </ul>
                         </figure>
