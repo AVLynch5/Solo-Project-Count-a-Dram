@@ -26,8 +26,7 @@ function ViewWhiskeyList (){
 
     return(
         <>
-            {/* {Object.keys(whiskeyListObj).length == 0 ? "Loading" : <WhiskeyListChild childObj={whiskeyListObj}/>} */}
-            {JSON.stringify(whiskeyListObj)}
+            {Object.keys(whiskeyListObj).length == 0 ? "Loading" : <WhiskeyListChild childObj={whiskeyListObj}/>}
         </>
     );
 };
