@@ -99,8 +99,8 @@ function AddADram(){
                     <TextField size="small" variant='outlined' sx={{color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.5, marginLeft: 0.5, marginRight: 0.5}} required type="number" inputProps={{step: "any", style: { fontSize: 22 }}} label="Quantity (oz)" InputLabelProps={{ style: { fontSize: 22 } }} value={newDram.quantity} onChange={handleChange('quantity')}/>
                     <br />
                     <TextField select disabled={user.id == null ? true : false} label="Type" size="small" variant='filled' sx={{minWidth: 140, color: 'black', backgroundColor: 'white', border: 3, borderColor: 'brown', marginBottom: 0.0, marginLeft: 0.5, marginRight: 0.5}} InputLabelProps={{ style: { fontSize: 22 } }} value={newDram.locType} onChange={handleChange('locType')}>
-                        {whiskeyLocType.map((option) => (
-                            <MenuItem value={option}>{option}</MenuItem>
+                        {whiskeyLocType.map((option, i) => (
+                            <MenuItem key={i} value={option}>{option}</MenuItem>
                         ))}
                     </TextField>    
                     <br/>
