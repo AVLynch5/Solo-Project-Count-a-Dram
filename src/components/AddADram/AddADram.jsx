@@ -9,6 +9,7 @@ import DateTimePicker from '@mui/lab/DateTimePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import moment from 'moment';
+import Constants from "../../../server/modules/constants";
 
 function AddADram(){
     //dispatch
@@ -83,7 +84,7 @@ function AddADram(){
 
     const currentTime = moment(Date()).local().add(1, 'days').format('YYYY-MM-DD');
 
-    const whiskeyLocType = ['Scotch', 'Bourbon', 'Rye'];
+    const whiskeyLocType = Constants.whiskeyTypes;
 
     return(
         <div className="wholePage">
