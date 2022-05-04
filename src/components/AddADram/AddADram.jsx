@@ -28,10 +28,10 @@ function AddADram(){
         //input validation here-ensure user inputted numbers into proof/quantity fields. Also ensure proof <= 200
         const validation = validateNums();
         if (validation) {
-            const ozAlc = (newDram.proof*newDram.quantity)/200;
-            const mLAlc = 29.5735*ozAlc;
-            const gAlc = 0.789*mLAlc;
-            const dramCals = 7*gAlc;
+            const ozAlc = (newDram.proof*newDram.quantity)/Constants.alcByVolume;
+            const mLAlc = Constants.mlPerOz*ozAlc;
+            const gAlc = Constants.gramsPerMlAlc*mLAlc;
+            const dramCals = Constants.calsPerGramAlc*gAlc;
             setNewDram({...newDram, calories: parseInt(dramCals)});
         } else{
             swal('Please enter valid proof and quantity values');
