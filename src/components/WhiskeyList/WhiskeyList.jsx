@@ -16,9 +16,9 @@ function ViewWhiskeyList (){
 
     function processWhiskeyList(array){
         const filterNoName = array.filter(whiskey => whiskey.whiskey_name != "");
-        const whiskeyCategories = filterNoName.reduce((nameWhiskeys, {whiskey_type, whiskey_name}) => {
+        const whiskeyCategories = filterNoName.reduce((nameWhiskeys, {whiskey_type, whiskey_name, whiskey_proof}) => {
             if (!nameWhiskeys[whiskey_type]) nameWhiskeys[whiskey_type] = [];
-            nameWhiskeys[whiskey_type].push(whiskey_name);
+            nameWhiskeys[whiskey_type].push({"name": whiskey_name, "proof": whiskey_proof});
             return nameWhiskeys;
         }, {});
         setWhiskeyListObj(whiskeyCategories);
@@ -26,7 +26,8 @@ function ViewWhiskeyList (){
 
     return(
         <>
-            {Object.keys(whiskeyListObj).length == 0 ? "Loading" : <WhiskeyListChild childObj={whiskeyListObj}/>}
+            {/* {Object.keys(whiskeyListObj).length == 0 ? "Loading" : <WhiskeyListChild childObj={whiskeyListObj}/>} */}
+            {JSON.stringify(whiskeyListObj)}
         </>
     );
 };
