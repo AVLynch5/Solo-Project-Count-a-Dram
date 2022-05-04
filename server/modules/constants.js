@@ -1,5 +1,5 @@
-const whiskeyTypes = ['Scotch', 'Irish', 'Japanese', 'Canadian', 'Bourbon', 'Rye', 'Blended', 'Single Malt', 'Tennessee', 'American Wheated'];
+const Constants = {
+    whiskeyTypes: ['Scotch', 'Irish', 'Japanese', 'Canadian', 'Bourbon', 'Rye', 'Blended', 'Single Malt', 'Tennessee', 'American Wheated'],
+};
 
-module.exports = {
-    whiskeyTypes,
-  };
+export default Constants;
