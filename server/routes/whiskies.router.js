@@ -2,6 +2,7 @@ const express = require('express');
 const {rejectUnauthenticated} = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const router = express.Router();
+const {processWhiskeyList} = require(`../modules/WhiskeyListArrToObj`);
 
 //GET
 router.get('/', rejectUnauthenticated, async (req, res) => {
@@ -13,7 +14,8 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
         ORDER BY "whiskey"."whiskey_name" ASC;`;
     pool.query(queryText, [userID])
         .then((result) => {
-            res.send(result);
+            const resultObj = processWhiskeyList(result.rows);
+            res.send(resultObj);
         })
         .catch((error) => {
             console.log('Error GETting whiskies', error);
