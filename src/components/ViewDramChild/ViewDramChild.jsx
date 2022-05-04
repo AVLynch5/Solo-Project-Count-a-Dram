@@ -7,6 +7,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import DeleteIcon from '@mui/icons-material/Delete';
 import swal from 'sweetalert';
 import Button from '@mui/material/Button';
+import Constants from "../../Constants";
 
 function ViewDramChild({dramList, entry}) {
     const dispatch = useDispatch();
@@ -82,7 +83,7 @@ function ViewDramChild({dramList, entry}) {
         dispatch({type: `EDIT_WHISKEY_${propertyKey}`, payload: {index: dramList.indexOf(entry), [propertyKey]: event.target.value}})
     }
 
-    const whiskeyLocType = ['Scotch', 'Bourbon', 'Rye'];
+    const whiskeyLocType = Constants.whiskeyTypes;
 
     return(
         <>
