@@ -44,6 +44,8 @@
   text-decoration: underline;
   text-decoration-color: #FA7F43;
   text-decoration-thickness: 35%;
+  -webkit-text-underline-position: under;
+  text-underline-position: under;
 }
 
 .nav-title:hover {
