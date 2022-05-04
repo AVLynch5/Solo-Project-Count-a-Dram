@@ -42,8 +42,8 @@ function AddADram(){
     //function handlePost - checks if calories calculated (inputs validated by calcCals) before dispatch
     const handlePost = () => {
         //check - user must have entered info and calculated to POST
-        if (!newDram.calories) {
-            swal('Please enter dram information and calculate');
+        if (!newDram.calories || !newDram.locType) {
+            swal('Please enter dram information and calculate calories');
             return;
         } else {
             dispatch({type: 'ADD_NEW_DRAM', payload: {...newDram, timeDate: value.valueOf()}});
