@@ -91,8 +91,8 @@ function ViewDramChild({dramList, entry}) {
                 <TableCell align={"center"}>{editMode ? <input type="text" value={dramList[dramList.indexOf(entry)].whiskey_name} onChange={handleChange('NAME')}/> : entry.whiskey_name}</TableCell>
                 <TableCell align={"center"}>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].whiskey_proof} onChange={handleChange('PROOF')}/> : entry.whiskey_proof}</TableCell>
                 <TableCell align={"center"}>{editMode ? <select required value={dramList[dramList.indexOf(entry)].whiskey_type} onChange={handleChange('TYPE')}>
-                    {whiskeyLocType.map((optionType) => (
-                        <option value={optionType}>{optionType}</option>
+                    {whiskeyLocType.map((optionType, i) => (
+                        <option key={i} value={optionType}>{optionType}</option>
                     ))}
                     </select> : entry.whiskey_type}</TableCell>
                 <TableCell align={"center"}>{editMode ? <input required type="number" value={dramList[dramList.indexOf(entry)].dram_quantity} onChange={handleChange('QUANTITY')}/> : entry.dram_quantity}</TableCell>
