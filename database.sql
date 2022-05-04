@@ -10,7 +10,7 @@ CREATE TABLE "whiskey" (
 	"id" SERIAL PRIMARY KEY,
 	"whiskey_name" varchar(80),
 	"whiskey_proof" FLOAT NOT NULL,
-	"whiskey_type" varchar(80),
+	"whiskey_type" varchar(80) NOT NULL,
 	"user_id" integer REFERENCES "user" NOT NULL
 );
 --junction table 
