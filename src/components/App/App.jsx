@@ -23,6 +23,7 @@ import AddADram from '../AddADram/AddADram';
 import ViewDrams from '../ViewDrams/ViewDrams';
 import AnalyzeDrams from '../AnalyzeDrams/AnalyzeDrams';
 import WhiskeyList from '../WhiskeyList/WhiskeyList';
+import PageTitle from '../PageTitle/PageTitle';
 
 import './App.css';
 
@@ -49,7 +50,7 @@ function App() {
             exact
             path="/about"
           >
-            <AboutPage />
+            <PageTitle title="About Page" component={<AboutPage />}/>
           </Route>
 
           {/* Visiting localhost:3000/adddram will show the Add a Dram page. */}
@@ -59,7 +60,7 @@ function App() {
             exact
             path="/adddram"
           >
-            <AddADram />
+            <PageTitle title="Add A Dram" component={<AddADram />}/>
           </Route>
 
           <Route
@@ -67,7 +68,7 @@ function App() {
             //idea - user must be logged in to view drams
             path="/viewdrams"
           >
-            <ViewDrams />
+            <PageTitle title="View Drams" component={<ViewDrams />}/>
           </Route>
 
           <Route
@@ -75,13 +76,13 @@ function App() {
             //idea - user must be logged in to analyze drams
             path="/analyzedrams"
           >
-            <AnalyzeDrams />
+            <PageTitle title="Analyze Drams" component={<AnalyzeDrams />}/>
           </Route>
 
           <Route
             path="/whiskeylist"
           >
-            <WhiskeyList />
+            <PageTitle title="Whiskey List" component={<WhiskeyList />}/>
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
@@ -93,7 +94,7 @@ function App() {
             exact
             path="/user"
           >
-            <UserPage />
+            <PageTitle title="User Page" component={<UserPage />}/>
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -101,7 +102,7 @@ function App() {
             exact
             path="/info"
           >
-            <InfoPage />
+            <PageTitle title="Info Page" component={<InfoPage />}/>
           </ProtectedRoute>
 
           <Route
@@ -114,7 +115,7 @@ function App() {
               <Redirect to="/user" />
               :
               // Otherwise, show the login page
-              <LoginPage />
+              <PageTitle title="User Login" component={<LoginPage />}/>
             }
           </Route>
 
@@ -128,7 +129,7 @@ function App() {
               <Redirect to="/user" />
               :
               // Otherwise, show the registration page
-              <RegisterPage />
+              <PageTitle title="User Registration" component={<RegisterPage />}/>
             }
           </Route>
 
