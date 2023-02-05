@@ -15,7 +15,6 @@ if (process.env.DATABASE_URL) {
   // https://github.com/brianc/node-pg-pool
   const params = url.parse(process.env.DATABASE_URL);
   const auth = params.auth.split(':');
-
   config = {
     user: auth[0],
     password: auth[1],
@@ -23,6 +22,17 @@ if (process.env.DATABASE_URL) {
     port: params.port,
     database: params.pathname.split('/')[1],
     ssl: { rejectUnauthorized: false },
+    max: 10, // max number of clients in the pool
+    idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
+  };
+} else if (process.env.PG_DB_CONFIG) {
+  dbArray = process.env.PG_DB_CONFIG.split('-');
+  config = {
+    host: dbArray[0], // Server hosting the postgres database
+    user: dbArray[1],
+    password: dbArray[2],
+    port: dbArray[3], // env var: PGPORT
+    database: dbArray[4], // CHANGE THIS LINE! env var: PGDATABASE, this is likely the one thing you need to change to get up and running
     max: 10, // max number of clients in the pool
     idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
   };
