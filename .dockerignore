@@ -1,0 +1,15 @@
+Dockerfile
+.dockerignore
+.gitignore
+README.md
+PostmanPrimeSoloRoutesv2.json
+PostmanPrimeSoloRoutes.json
+.env
+node_modules
+documentation
+build/
+apidoc
+.vscode
+docker-compose.yaml
+database.sql
+
