@@ -1,6 +1,16 @@
 version: '3.8'
 services:
-  db:
+  app:
+    build: .
+    depends_on:
+      - pgdb
+    ports:
+      - "5000:5000"
+    environment:
+      - PG_DB_CONFIG=pgdb-hexClad-hexClad-5432-Count_A_Dram
+    networks:
+      - app-network
+  pgdb:
     image: postgres:13-alpine
     restart: always
     environment:
@@ -10,7 +20,12 @@ services:
     ports:
       - '5432:5432'
     volumes: 
-      - db:/var/lib/postgresql/data
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
 volumes:
   db:
     driver: local
